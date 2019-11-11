@@ -7,3 +7,7 @@ div{
     height: 14em;
     text-align: center;
 }
+
+textarea{
+    resize: none;
+}
