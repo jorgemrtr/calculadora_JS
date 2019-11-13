@@ -2,11 +2,18 @@
     var cadenaIntroducida = "-1116.53+2";
 
     //Expresion regular con la estructura que seguiran los operandos
-    estructuraOperando = /-?[0-9]+\.?[0-9]+/;
+    var estructuraOperando = /-?[0-9]+\.?[0-9]+/;
     var operando = cadenaIntroducida.match(estructuraOperando).toString();
     document.write(operando.length + "<br>");
-    document.write(operando);
+    document.write(operando + "<br><br>");
+
+
     //Despues comprobamos que la estructura nada mas terminar el operando es una operacion valida de lo contrario ERROR
+    var cadenaIntroducida2 = "-";
+    var estructuraOperacion = /^-\+\*\/?/;
+    var operando2 = cadenaIntroducida2.match(estructuraOperacion).toString();
+
+    document.write(operando);
 
     /*
     1.Siempre debe empezar por un número (puede ser positivo o negativo), no debe empezar por una operación.
