@@ -1,6 +1,6 @@
 //function analizarInput(valorIntroducido) {
 
-    var cadenaIntroducida = "-1116.53+2ABS*";
+    var cadenaIntroducida = "-1116.53-";
     /*OPEACIONES SIMPLES
        - Resta
        + Suma
@@ -35,29 +35,22 @@
     var estructuraOperacionCompleja = /^PI|E|\^|ABS|SEN|COS|TAN|LOG10|LOG2|LN|SQRT|RAIZ?/;
 
     /*Recorremos la cadena introducida en orden Operando > Operacion > Operando, si el orden no es valido dara error*/
-    var turnoOperando = true;
-    var finalizarAnalisis = false;
-    var posicionActual = 0;
-    while (finalizarAnalisis = false) {
-        if (turnoOperando) {
+
             document.write(cadenaIntroducida);
-            var operando = cadenaIntroducida.match(estructuraOperando);
-            posicionActual = operando.length;
-            document.write(operando);
             document.write("<br>");
-            turnoOperando = false;
-        } else {
+
+            var operando = cadenaIntroducida.match(estructuraOperando);
+            document.write("operando = " + operando);
+            document.write("<br>");
+            cadenaIntroducida = cadenaIntroducida.substring(operando.length, cadenaIntroducida.length);
+
             var operacionBas = cadenaIntroducida.match(estructuraOperacionSimple);
             var operacionComp = cadenaIntroducida.match(estructuraOperacionCompleja);
-            document.write(operacionBas);
+            document.write("operacion = " + operacionBas);
             document.write("<br>");
-            document.write(operacionComp);
+            document.write("operacion = " + operacionComp);
             document.write("<br>");
-        }
-        //Hacemos un substring quitando la parte que ya hemos analizado
-        cadenaIntroducida = cadenaIntroducida.substring(posicionActual, cadenaIntroducida.length);
 
-    };
 
 
 //}
