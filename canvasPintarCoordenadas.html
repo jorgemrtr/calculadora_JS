@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+    <canvas id="lienzo" height="700" width="700" style="background-color:black;";></canvas>
+    <br>
+    <button onclick="pintar()">dibujar</button>
+    <script>
+        var canvas1 = document.getElementById('lienzo');
+        var lienzo = canvas1.getContext("2d");
+
+        var mitadX = canvas1.width /2;
+        var mitadY = canvas1.height/2;
+        var totalX = canvas1.width;
+        var totalY = canvas1.height;
+        var color = '#00FF00';
+        var tamanoRaya = 3;
+        var separacionRaya = 15;
+
+        function pintar() {
+            pintarEjes();
+            pintarRayas();
+            lienzo.closePath();
+        }
+        function pintarEjes() {
+            lienzo.strokeStyle = color;
+            lienzo.lineWidth = 1.5;
+            lienzo.beginPath();
+            //eje X
+            lienzo.moveTo(0, mitadY);
+            lienzo.lineTo(totalX, mitadY);
+            lienzo.stroke();
+            //ejeY
+            lienzo.moveTo(mitadX, 0);
+            lienzo.lineTo(mitadX, totalY);
+            lienzo.stroke();
+        }
+
+        function pintarRayas() {
+
+            lienzo.strokeStyle = color;
+            lienzo.beginPath();
+            for (var i = mitadX; i < totalX; i+=separacionRaya) {
+                lienzo.moveTo(i, mitadY);
+                lienzo.lineTo(i, (mitadY - tamanoRaya));
+                var indiceNegativo = mitadX*2 - i;
+                lienzo.moveTo(indiceNegativo, mitadY);
+                lienzo.lineTo(indiceNegativo, (mitadY - tamanoRaya));
+                lienzo.stroke();
+            }
+            /*for (var i = mitadX; i > 0; i-=separacionRaya) {
+                lienzo.moveTo(i, (mitadY + tamanoRaya));
+                lienzo.lineTo(i, (mitadY - tamanoRaya));
+                lienzo.stroke();
+            }*/
+            for (var i = mitadY; i < totalY; i+=separacionRaya) {
+                lienzo.moveTo(mitadX, i);
+                lienzo.lineTo((mitadX + tamanoRaya), i);
+                var indiceNegativo = mitadY*2 - i;
+                lienzo.moveTo(mitadX, indiceNegativo);
+                lienzo.lineTo((mitadX + tamanoRaya), indiceNegativo);
+                lienzo.stroke();
+            }
+
+            /*for (var i = mitadY; i > 0; i-=separacionRaya) {
+                lienzo.moveTo((mitadX + tamanoRaya), i);
+                lienzo.lineTo((mitadX - tamanoRaya), i);
+                lienzo.stroke();
+            }*/
+        }
+
+    </script>
+</body>
+</html>
