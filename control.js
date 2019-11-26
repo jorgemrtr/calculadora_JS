@@ -35,7 +35,9 @@ function calcular() {
 	//asignamos la cadena introducida a una variable
 	inputIntroducido = document.getElementById('datosIntroducidos').value.toString();
 	inputIntroducido = inputIntroducido.replace("PI", Math.PI);
-	inputIntroducido = inputIntroducido.replace(/[^S]E[^N]/, Math.E);
+	console.log(inputIntroducido);
+	inputIntroducido = inputIntroducido.replace(/E(?!N)/g, Math.E);
+	console.log(inputIntroducido);
 	while (inputIntroducido.length > 0 && !error) {
 		analizarInput(inputIntroducido);
 	}
