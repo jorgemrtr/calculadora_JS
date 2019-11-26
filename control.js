@@ -25,120 +25,113 @@
 var estructuraOperando = /^[-+]?[0-9]+\.?[0-9]+|^[-+]?[0-9]/;
 var estructuraUnOperador = /\ABS|SEN|COS|TAN|LOG10|LOG2|LN|SQRT{1}/;
 var estructuraOperaciones = /^-|\+|\*|\/|\^|ABS|SEN|COS|TAN|LOG10|LOG2|LN|SQRT|RAIZ{1}/;
+var parteOperada = "";
+var resultado;
+var error = false;
 
 function calculadora() {
-    //asignamos la cadena recibida a una variable
-    var inputIntroducido = document.getElementById('datosIntroducidos').value.toString();
-    inputIntroducido = inputIntroducido.replace("PI", Math.PI);
-    inputIntroducido = inputIntroducido.replace("E", Math.E);
-    analizarInput(inputIntroducido);
+	//asignamos la cadena recibida a una variable
+	var inputIntroducido = document.getElementById('datosIntroducidos').value.toString();
+	inputIntroducido = inputIntroducido.replace("PI", Math.PI);
+	inputIntroducido = inputIntroducido.replace("E", Math.E);
+	analizarInput(inputIntroducido);
+	document.getElementById('mostrarDatos').value = resultado;
+	console.log('resultado: ' + resultado);
+	console.log('parte operada: ' + parteOperada);
 }
 
 function analizarInput(inputIntroducido) {
-    console.log(inputIntroducido);
-    console.log();
-    var error = false;
-    var unOperador = false;
-    
-    //primer operador
-    var operando1 = inputIntroducido.match(estructuraOperando);
-    if (operando1 === null) {
-        error = true;
-    } else {
-        operando1 = operando1.toString();
-        console.log(operando1);
-        console.log();
-        inputIntroducido = inputIntroducido.substring(operando1.length, inputIntroducido.length);
-    }
+	var unOperador = false;
 
-    //operacion
-    var operacion = inputIntroducido.match(estructuraOperaciones);
-    if (operacion === null) {
-        error = true;
-    } else {
-        operacion = operacion.toString();
-        inputIntroducido = inputIntroducido.substring(operacion.length, inputIntroducido.length);
-        if (operacion.match(estructuraUnOperador)) {
-            unOperador = true;
-        }
-    }
+	//primer operador
+	var operando1
+	if (parteOperada === "") {
+		operando1 = analizarOperando(inputIntroducido);
+	} else {
+		operando1 = resultado;
+	}
+	
+	//operacion
+	var operacion = analizarOperacion(inputIntroducido);
 
+	//segundo operador
+	var operando2;
+	if (!unOperador) {
+		operando2 = analizarOperando(inputIntroducido);
+	} else {
+		operando2 = null;
+	}
 
-    var operando2;
-    if (!unOperador) {
-        //segundo operador
-        operando2 = inputIntroducido.match(estructuraOperando);
-        if (operando2 === null) {
-            error = true;
-        } else {
-            operando2 = operando2.toString();
-            inputIntroducido = inputIntroducido.substring(operando2.length, inputIntroducido.length);
-            if (operando2 === 'PI') {
-                operando2 = Math.PI;
-            } else if (operando2 === 'E') {
-                operando2 = Math.E;
-            }
-        }
-    }
-    console.log("operando1: " + operando1);
-    console.log("operacion: " + operacion);
-    console.log("operando2: " + operando2);
-    console.log("Error: " + error);
-    console.log(inputIntroducido);
-    if (!error) {
-        realizarOperacion(operando1, operando2, operacion);
-    } 
+	console.log("operando1: " + operando1);
+	console.log("operacion: " + operacion);
+	console.log("operando2: " + operando2);
+	console.log("Error: " + error);
+	console.log(inputIntroducido);
+	if (!error) {
+		resultado = realizarOperacion(operando1, operando2, operacion);
+	}
+}
+
+function analizarOperando(inputIntroducido) {
+	var operando = inputIntroducido.match(estructuraOperando);
+	if (operando === null) {
+		error = true;
+	} else {
+		parteOperada += operando.toString();
+		inputIntroducido = inputIntroducido.substring(operando.toString().length, inputIntroducido.length);
+		operando = parseFloat(operando);
+	}
+	return operando;
+}
+
+function analizarOperacion(inputIntroducido) {
+	var operacion = inputIntroducido.match(estructuraOperaciones);
+	if (operacion === null) {
+		error = true;
+	} else {
+		operacion = operacion.toString();
+		parteOperada += operacion;
+		inputIntroducido = inputIntroducido.substring(operacion.length, inputIntroducido.length);
+		if (operacion.match(estructuraUnOperador)) {
+			unOperador = true;
+		}
+	}
+	return operacion;
 }
 
 function realizarOperacion(operando1, operando2, operacion) {
-    operando1 = parseFloat(operando1);
-    operando2 = parseFloat(operando2);
-
-    var resultado;
-    if (operacion === '-') {
-        resultado = operando1 - operando2;
-
-    } else if (operacion === '+') {
-        resultado = operando1 + operando2;
-
-    } else if (operacion === '*') {
-        resultado = operando1 * operando2;
-
-    } else if (operacion === '/') {
-        resultado = operando1 / operando2;
-
-    } else if (operacion === '^') {
-        resultado = operando1 ** operando2;
-
-    } else if (operacion === 'ABS') {
-        //Este tipo solo opera a un operador
-        resultado = Math.abs(operando1);
-
-    } else if (operacion === 'SEN') {
-        resultado = Math.sin(operando1);
-
-    } else if (operacion === 'COS') {
-        resultado = Math.cos(operando1);
-
-    } else if (operacion === 'TAN') {
-        resultado = Math.tan(operando1);
-
-    } else if (operacion === 'LOG10') {
-        resultado = Math.log10(operando1);
-
-    } else if (operacion === 'LOG2') {
-        resultado = Math.log2(operando1);
-
-    } else if (operacion === 'LN') {
-        resultado = Math.log(operando1);
-
-    } else if (operacion === 'SQRT') {
-        resultado = Math.sqrt(operando1);
-
-    } else if (operacion === 'RAIZ N') {
-        resultado = Math.pow(operando2, 1 / operando1);
-
-    }
-    document.getElementById('mostrarDatos').value = resultado;
+	var resultado;
+	//Operaciones con 2 operadores
+	if (operacion === '-') {
+		resultado = operando1 - operando2;
+	} else if (operacion === '+') {
+		resultado = operando1 + operando2;
+	} else if (operacion === '*') {
+		resultado = operando1 * operando2;
+	} else if (operacion === '/') {
+		resultado = operando1 / operando2;
+	} else if (operacion === '^') {
+		resultado = operando1 ** operando2;
+	} else if (operacion === 'RAIZ N') {
+		resultado = Math.pow(operando2, 1 / operando1);
+		//Operaciones con 1 operador
+	} else if (operacion === 'ABS') {
+		resultado = Math.abs(operando1);
+	} else if (operacion === 'SEN') {
+		resultado = Math.sin(operando1);
+	} else if (operacion === 'COS') {
+		resultado = Math.cos(operando1);
+	} else if (operacion === 'TAN') {
+		resultado = Math.tan(operando1);
+	} else if (operacion === 'LOG10') {
+		resultado = Math.log10(operando1);
+	} else if (operacion === 'LOG2') {
+		resultado = Math.log2(operando1);
+	} else if (operacion === 'LN') {
+		resultado = Math.log(operando1);
+	} else if (operacion === 'SQRT') {
+		resultado = Math.sqrt(operando1);
+	}
+	return resultado;
 }
 
