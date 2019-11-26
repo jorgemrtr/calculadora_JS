@@ -1,13 +1,13 @@
 /*
- Constantes
+CONSTANTES
  PI - Num PI
  E - Num E
- OPEACIONES SIMPLES
+OPEACIONES SIMPLES
  - Resta
  + Suma
  * Multiplicacion
  / Division
- OPEACIONES COMPLEJAS:
+OPEACIONES COMPLEJAS:
  Funciones
  ^ - Num elevado a otro
  ABS - Valor absoluto de un num
@@ -19,7 +19,7 @@
  LN - logaritmo Natural de un número.
  SQRT (Función) Raíz cuadrada de un número.
  RAIZ N (Función) Raíz n-esima de un número, Ejemplo Raíz cúbica, Raíz Cuarta...
- */
+*/
 
 //expresiones para operandos y operaciones
 var estructuraOperando = /^[-+]?[0-9]+\.?[0-9]+|^[-+]?[0-9]/;
@@ -35,7 +35,7 @@ function calcular() {
 	//asignamos la cadena introducida a una variable
 	inputIntroducido = document.getElementById('datosIntroducidos').value.toString();
 	inputIntroducido = inputIntroducido.replace("PI", Math.PI);
-	inputIntroducido = inputIntroducido.replace("E", Math.E);
+	inputIntroducido = inputIntroducido.replace(/[^S]E[^N]/, Math.E);
 	while (inputIntroducido.length > 0 && !error) {
 		analizarInput(inputIntroducido);
 	}
@@ -46,8 +46,8 @@ function calcular() {
 function analizarInput(inputIntroducido) {
 	unOperador = false;
 	//primer operador
-	var operando1
-	if (resultado == null) {
+	var operando1;
+	if (resultado === null) {
 		operando1 = analizarOperando();
 	} else {
 		operando1 = resultado;
@@ -67,6 +67,7 @@ function analizarInput(inputIntroducido) {
 	console.log("operando2: " + operando2);
 	console.log("Error: " + error);
 	console.log("Operaciones restantes: " + inputIntroducido);
+        
 	if (!error) {
 		resultado = realizarOperacion(operando1, operando2, operacion);
 	} else {
@@ -94,7 +95,7 @@ function analizarOperacion() {
 		inputIntroducido = inputIntroducido.substring(operacion.length, inputIntroducido.length);
 		if (operacion.match(estructuraUnOperador)) {
 			unOperador = true;
-			console.log('Un operador');
+			console.log(' - Un operador - ');
 		}
 	}
 	return operacion;
@@ -138,6 +139,6 @@ function realizarOperacion(operando1, operando2, operacion) {
 
 function resetear() {
 	inputIntroducdo = null;
-	resultado = null
+	resultado = null;
 	error = false;
 }

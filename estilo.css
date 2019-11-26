@@ -1,3 +1,58 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
 input {
   text-align: right;
+  height: 1.6em;
+  font-size: 1.6em;
+  width: 100%;
 }
+
+#chasis_calculadora {
+    width: 45%;
+    height: 25em;
+    text-align: center;
+    float: left;
+    position: relative;
+    left: 25%;
+    
+    background-color: lightgrey;
+    border-radius: 5%;
+}
+
+#panel_pantalla {
+    margin: 5%;
+}
+
+.panel {
+    float: left;
+    height: 13em;
+}
+
+#panel_botones {
+    margin: 0% 0% 0% 5%;
+    width: 55%;
+}
+
+#panel_botones_lateral {
+    margin: 0% 5% 0% 0%;
+    width: 35%;
+}
+
+.boton {
+    background-color: lightblue;
+    border: 1px solid black;
+    float: left;
+    width: 22%;
+    margin: 0.2em;
+    height: 18%;
+}
+
+#panel_botones_lateral .boton {
+    width: 30%;
+}
+#panel_botones .boton {
+    width: 22%;
+}
+
