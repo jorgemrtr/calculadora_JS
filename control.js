@@ -26,8 +26,9 @@ var estructuraOperando = /^[-+]?[0-9]+\.?[0-9]+|^[-+]?[0-9]/;
 var estructuraUnOperador = /\ABS|SEN|COS|TAN|LOG10|LOG2|LN|SQRT{1}/;
 var estructuraOperaciones = /^-|\+|\*|\/|\^|ABS|SEN|COS|TAN|LOG10|LOG2|LN|SQRT|RAIZ{1}/;
 
-var inputIntroducido
+var inputIntroducido;
 var resultado = null;
+var unOperador;
 var error = false;
 
 function calcular() {
@@ -43,8 +44,7 @@ function calcular() {
 }
 
 function analizarInput(inputIntroducido) {
-	console.log('a -- ' + inputIntroducido.length);
-	var unOperador = false;
+	unOperador = false;
 	//primer operador
 	var operando1
 	if (resultado == null) {
@@ -66,11 +66,11 @@ function analizarInput(inputIntroducido) {
 	console.log("operacion: " + operacion);
 	console.log("operando2: " + operando2);
 	console.log("Error: " + error);
-	console.log(inputIntroducido);
+	console.log("Operaciones restantes: " + inputIntroducido);
 	if (!error) {
 		resultado = realizarOperacion(operando1, operando2, operacion);
 	} else {
-		resultado = 'La operacion introducida no es valida';
+		resultado = 'Operacion no valida';
 	}
 }
 
@@ -94,6 +94,7 @@ function analizarOperacion() {
 		inputIntroducido = inputIntroducido.substring(operacion.length, inputIntroducido.length);
 		if (operacion.match(estructuraUnOperador)) {
 			unOperador = true;
+			console.log('Un operador');
 		}
 	}
 	return operacion;
@@ -112,7 +113,7 @@ function realizarOperacion(operando1, operando2, operacion) {
 		resultado = operando1 / operando2;
 	} else if (operacion === '^') {
 		resultado = operando1 ** operando2;
-	} else if (operacion === 'RAIZ N') {
+	} else if (operacion === 'RAIZ') {
 		resultado = Math.pow(operando2, 1 / operando1);
 		//Operaciones con 1 operador
 	} else if (operacion === 'ABS') {
