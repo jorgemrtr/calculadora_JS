@@ -33,15 +33,14 @@ var error = false;
 
 function calcular() {
 	//asignamos la cadena introducida a una variable
-	inputIntroducido = document.getElementById('datosIntroducidos').value.toString();
+	inputIntroducido = document.getElementById('datosIntroducidos').innerHTML;
+	inputIntroducido = inputIntroducido.toUpperCase().toString();
 	inputIntroducido = inputIntroducido.replace("PI", Math.PI);
-	console.log(inputIntroducido);
 	inputIntroducido = inputIntroducido.replace(/E(?!N)/g, Math.E);
-	console.log(inputIntroducido);
 	while (inputIntroducido.length > 0 && !error) {
 		analizarInput(inputIntroducido);
 	}
-	document.getElementById('mostrarDatos').value = resultado;
+	document.getElementById('mostrarDatos').innerHTML = resultado;
 	resetear();
 }
 
@@ -140,7 +139,7 @@ function realizarOperacion(operando1, operando2, operacion) {
 }
 
 function resetear() {
-	inputIntroducdo = null;
+	inputIntroducido = null;
 	resultado = null;
 	error = false;
 }
