@@ -25,6 +25,7 @@ body {
     height: 1em;
     width: 90%;
     border: solid 0.04em black;
+    overflow: hidden;
 }
 
 #panel_pantalla div#boton_cero{

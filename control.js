@@ -27,52 +27,78 @@ var estructuraUnOperador = /\ABS|SEN|COS|TAN|LOG10|LOG2|LN|SQRT{1}/;
 var estructuraOperaciones = /^-|\+|\*|\/|\^|ABS|SEN|COS|TAN|LOG10|LOG2|LN|SQRT|RAIZ{1}/;
 
 var inputIntroducido;
-var resultado = null;
+var resultado;
 var unOperador;
-var error = false;
+var error;
+
+var operando1, operando2, operacion;
 
 function calcular() {
-	//asignamos la cadena introducida a una variable
-	inputIntroducido = document.getElementById('datosIntroducidos').innerHTML;
-	inputIntroducido = inputIntroducido.toUpperCase().toString();
-	inputIntroducido = inputIntroducido.replace("PI", Math.PI);
-	inputIntroducido = inputIntroducido.replace(/E(?!N)/g, Math.E);
-	while (inputIntroducido.length > 0 && !error) {
-		analizarInput(inputIntroducido);
+    //asignamos la cadena introducida a una variable
+    inputIntroducido = document.getElementById('datosIntroducidos').innerHTML;
+    inputIntroducido = formatearCadena(inputIntroducido);
+    
+    while (inputIntroducido.length > 0 && !error) {
+    	analizarInput();
+        if (!error) {
+		resultado = realizarOperacion(operando1, operando2, operacion);
+	} else {
+		resultado = 'Operacion no valida';
 	}
-	document.getElementById('mostrarDatos').innerHTML = resultado;
-	resetear();
+    }
+    document.getElementById('mostrarDatos').innerHTML = resultado;
+    resetear();
 }
 
-function analizarInput(inputIntroducido) {
+function cambiarSigno() {
+    inputIntroducido = document.getElementById('datosIntroducidos').innerHTML;
+    inputIntroducido = formatearCadena(inputIntroducido);
+    var inputOriginal = inputIntroducido;
+    while (inputIntroducido.length > 0 && !error) {
+    	analizarInput();
+    }
+    var ultimoOperando;
+    if (operando2 !== null) {
+        ultimoOperando = operando2;
+    } else {
+        ultimoOperando = operando1;
+    }
+    if (!error) {
+        var longitudOperando = inputOriginal.length - ultimoOperando.toString().length;
+    ultimoOperando *= -1;
+    if (ultimoOperando > 0) {
+        ultimoOperando = "+" + ultimoOperando;
+    }
+    var inputCambiado = inputOriginal.substr(0,longitudOperando) + ultimoOperando;
+    document.getElementById('datosIntroducidos').innerHTML = inputCambiado;
+    }
+    resetear();
+}
+
+function formatearCadena(cadena) {
+    cadena = cadena.toUpperCase().toString();
+    cadena = cadena.replace("PI", Math.PI);
+    cadena = cadena.replace(/E(?!N)/g, Math.E);
+    return cadena;
+}
+
+function analizarInput() {
 	unOperador = false;
 	//primer operador
-	var operando1;
+	operando1;
 	if (resultado === null) {
 		operando1 = analizarOperando();
 	} else {
 		operando1 = resultado;
 	}
 	//operacion
-	var operacion = analizarOperacion();
+	operacion = analizarOperacion();
 	//segundo operador
-	var operando2;
+	operando2;
 	if (!unOperador) {
 		operando2 = analizarOperando();
 	} else {
 		operando2 = null;
-	}
-
-	console.log("operando1: " + operando1);
-	console.log("operacion: " + operacion);
-	console.log("operando2: " + operando2);
-	console.log("Error: " + error);
-	console.log("Operaciones restantes: " + inputIntroducido);
-        
-	if (!error) {
-		resultado = realizarOperacion(operando1, operando2, operacion);
-	} else {
-		resultado = 'Operacion no valida';
 	}
 }
 
@@ -81,8 +107,7 @@ function analizarOperando() {
 	if (operando === null) {
 		error = true;
 	} else {
-		inputIntroducido = inputIntroducido.substring(operando.toString().length, inputIntroducido.length);
-		operando = parseFloat(operando);
+            inputIntroducido = inputIntroducido.substring(operando.toString().length, inputIntroducido.length);
 	}
 	return operando;
 }
@@ -95,14 +120,15 @@ function analizarOperacion() {
 		operacion = operacion.toString();
 		inputIntroducido = inputIntroducido.substring(operacion.length, inputIntroducido.length);
 		if (operacion.match(estructuraUnOperador)) {
-			unOperador = true;
-			console.log(' - Un operador - ');
+                    unOperador = true;
 		}
 	}
 	return operacion;
 }
 
 function realizarOperacion(operando1, operando2, operacion) {
+        operando1 = parseFloat(operando1);
+        operando2 = parseFloat(operando2);
 	var resultado;
 	//Operaciones con 2 operadores
 	if (operacion === '-') {
@@ -142,18 +168,4 @@ function resetear() {
 	inputIntroducido = null;
 	resultado = null;
 	error = false;
-}
-
-function cambiarSigno() {
-	var inputActual = document.getElementById('datosIntroducidos').innerHTML;
-	var operando = inputActual.match(estructuraOperando);
-	console.log(operando);
-	if (operando != null) {
-		operando = parseFloat(operando);
-		console.log(inputActual);
-		inputActual = inputActual.replace(operando, (operando*-1));
-		console.log(inputActual);
-	}
-	
-	
 }

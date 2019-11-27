@@ -8,17 +8,27 @@
   <script src="control.js"></script>
   <script>
     function comprobarBotones(valorPulsado) {
-      document.getElementById('datosIntroducidos').innerHTML += valorPulsado;
+      if (document.getElementById('datosIntroducidos').innerHTML === 'Operacion no valida' || 
+          document.getElementById('datosIntroducidos').innerHTML === 'NaN') {
+        document.getElementById('datosIntroducidos').innerHTML = valorPulsado;
+      } else {
+        document.getElementById('datosIntroducidos').innerHTML += valorPulsado;
+      }
+          
     }
     function resetearInput() {
       document.getElementById('datosIntroducidos').innerHTML = '';
       document.getElementById('mostrarDatos').innerHTML = '';
     }
+    function mostrarResultado() {
+      var resultado = document.getElementById('mostrarDatos').innerHTML;
+      document.getElementById('datosIntroducidos').innerHTML = resultado;
+    }
     
   </script>
 </head>
 
-<body>
+<body onclick="calcular()">
   <!-- Para invertir el signo, capturamos el operador que se esta introduciend, buscando de derecha 
   a izquierda (invertir cadena) o usando last index of. Si el operador es menor que cero pasa a 
   positivo sino a negativo -->
@@ -65,7 +75,7 @@
       <br>
       <div class="boton_numero" onclick="comprobarBotones(this.innerHTML)">0</div>
       <div class="boton_numero" onclick="comprobarBotones(this.innerHTML)">.</div>
-      <div class="boton_operacion" onclick="calcular()" style="width: 43%">=</div>
+      <div class="boton_operacion" onclick="mostrarResultado()" style="width: 43%">=</div>
       <br>
       <div class="boton_operacion" onclick="cambiarSigno()">+ / -</div>
       <div class="boton_operacion" onclick="comprobarBotones(this.innerHTML)">ABS</div>
