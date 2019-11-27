@@ -143,3 +143,17 @@ function resetear() {
 	resultado = null;
 	error = false;
 }
+
+function cambiarSigno() {
+	var inputActual = document.getElementById('datosIntroducidos').innerHTML;
+	var operando = inputActual.match(estructuraOperando);
+	console.log(operando);
+	if (operando != null) {
+		operando = parseFloat(operando);
+		console.log(inputActual);
+		inputActual = inputActual.replace(operando, (operando*-1));
+		console.log(inputActual);
+	}
+	
+	
+}
