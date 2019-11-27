@@ -31,7 +31,6 @@ body {
 #panel_pantalla div#boton_cero{
     width: 16%;
     border-right: none;
-    padding-top: unset inherit;
     padding-left: unset;
     padding-right: unset;
 }
@@ -71,10 +70,25 @@ body {
 }
 
 div.boton_numero {
+    background-color: #f1f3f4;
+}
+div.boton_numero:hover {
     background-color: #e8eaeb;
 }
 
 div.boton_operacion {
+    background-color: #dfe1e5;
+}
+div.boton_operacion:hover {
     background-color: #d7d9dd;
+}
+
+#panel_botones div.boton_calcular {
+    background-color: #4285f4;
+    color: white;
+    width: 43%;
+}
+#panel_botones div.boton_calcular:hover {
+    background-color: #5194ff;
 }
 
