@@ -44,12 +44,13 @@
   </script>
 </head>
 
-<body onclick="calcular()">
+<body">
 
   <div id="chasis_calculadora">
+      <button onclick="calcular()">calculo</button>
     <div id="panel_pantalla">
       <div id="boton_cero" class="boton_operacion" onclick="resetearInput()">C</div>
-      <div class="pantallas" id="datosIntroducidos" aria-placeholder="OPERACION" style="width: 80%;"></div>
+      <div class="pantallas" id="datosIntroducidos" style="width: 80%;"></div>
       <div class="pantallas" id="mostrarDatos"></div>
       <canvas id="lienzo"></canvas>
     </div>
@@ -91,7 +92,7 @@
       <div class="boton_operacion" onclick="comprobarBotones(this.innerHTML)">*</div>
       <br>
       <div class="boton_numero" onclick="comprobarBotones(this.innerHTML)">0</div>
-      <div class="boton_numero" onclick="comprobarBotones(this.innerHTML)">.</div>
+      <div class="boton_numero" onclick="comprobarBotones(this.innerHTML)">,</div>
       <div class="boton_calcular" onclick="mostrarResultado()">=</div>
       <br>
       <div class="boton_operacion" onclick="cambiarSigno()">+ / -</div>

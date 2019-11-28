@@ -1,54 +1,59 @@
 //expresiones regulares para operandos y operaciones
-var estructuraOperando = /^[-+]?[0-9]+\,?[0-9]+|^[-+]?[0-9]/;
+var estructuraOperando = /^[-+]?[0-9]+\.?[0-9]+|^[-+]?[0-9]/;
 var estructuraUnOperador = /\ABS|SEN|COS|TAN|LOG10|LOG2|LN|SQRT{1}/;
 var estructuraOperaciones = /^-|\+|\*|\/|\^|ABS|SEN|COS|TAN|LOG10|LOG2|LN|SQRT|RAIZ{1}/;
 var inputIntroducido, resultado, unOperador, error;
 var operando1, operando2, operacion;
 
 function calcular() {
-    //asignamos la cadena introducida a una variable.
-    inputIntroducido = formatearCadena(document.getElementById('datosIntroducidos').innerHTML);
-    //se analiza la estructura y se calcula el resultado si no hay errores.
-    while (inputIntroducido.length > 0 && !error) {
-    	analizarInput();
-        if (!error) {
-		resultado = operar(parseFloat(operando1), parseFloat(operando2), operacion);
-	} else {
-		resultado = 'Operacion no valida';
+	//asignamos la cadena introducida a una variable.
+	inputIntroducido = formatearCadena(document.getElementById('datosIntroducidos').innerHTML);
+	//se analiza la estructura y se calcula el resultado si no hay errores.
+	while (inputIntroducido.length > 0 && !error) {
+		analizarInput();
+		
+		if (!error) {
+			resultado = operar(parseFloat(operando1), parseFloat(operando2), operacion);
+		} else {
+			resultado = 'Operacion no valida';
+		}
 	}
-    }
-    document.getElementById('mostrarDatos').innerHTML = resultado;
-    resultado = null;
-    error = false;
+	document.getElementById('mostrarDatos').innerHTML = resultado;
+	resultado = null;
+	error = false;
 }
 function cambiarSigno() {
-    //asignamos la cadena introducida a una variable.
-    inputIntroducido = formatearCadena(document.getElementById('datosIntroducidos').innerHTML);
-    var inputOriginal = inputIntroducido;
-    //se analiza la estructura y se cambia el ultimo opeador si no hay errores.
-    while (inputIntroducido.length > 0 && !error) {
-    	analizarInput();
-    }
-    var ultimoOperando;
-    if (operando2 !== null) {
-        ultimoOperando = operando2;
-    } else {
-        ultimoOperando = operando1;
-    }
-    if (!error) {
-        var longitudOperando = inputOriginal.length - ultimoOperando.toString().length;
-        ultimoOperando *= -1;
-        if (ultimoOperando > 0) {
-            ultimoOperando = "+" + ultimoOperando;
-        }
-        var inputCambiado = inputOriginal.substr(0,longitudOperando) + ultimoOperando;
-        document.getElementById('datosIntroducidos').innerHTML = inputCambiado;
-    }
-    resultado = null;
-    error = false;
+	//asignamos la cadena introducida a una variable.
+	inputIntroducido = formatearCadena(document.getElementById('datosIntroducidos').innerHTML);
+	var inputOriginal = inputIntroducido;
+	//se analiza la estructura y se cambia el ultimo opeador si no hay errores.
+	console.log('***********************************');
+	while (inputIntroducido.length > 0 && !error) {
+		analizarInput();
+	}
+	var ultimoOperando;
+	if (operando2 !== null) {
+		ultimoOperando = operando2;
+	} else {
+		ultimoOperando = operando1;
+	}
+	if (ultimoOperando !== null && ultimoOperando == inputOriginal) {
+		error = false;
+	}
+	if (!error) {
+		var longitudOperando = inputOriginal.length - ultimoOperando.toString().length;
+		ultimoOperando *= -1;
+		if (ultimoOperando > 0) {
+			ultimoOperando = "+" + ultimoOperando;
+		}
+		var inputCambiado = inputOriginal.substr(0, longitudOperando) + ultimoOperando;
+		document.getElementById('datosIntroducidos').innerHTML = inputCambiado;
+	}
+	resultado = null;
+	error = false;
 }
 function analizarInput() {
-    //se buscan operadores y operaciones, si la estructura esta mal dara error.
+	//se buscan operadores y operaciones, si la estructura esta mal dara error.
 	unOperador = false;
 	if (resultado === null) {
 		operando1 = analizarOperando();
@@ -61,13 +66,17 @@ function analizarInput() {
 	} else {
 		operando2 = null;
 	}
+	console.log('operando1: ' + operando1);
+	console.log('operacion: ' + operacion);
+	console.log('operando2: ' + operando1);
+	console.log('ERROR: ' + error);
 }
 function analizarOperando() {
 	var operando = inputIntroducido.match(estructuraOperando);
 	if (operando === null) {
 		error = true;
 	} else {
-            inputIntroducido = inputIntroducido.substring(operando.toString().length, inputIntroducido.length);
+		inputIntroducido = inputIntroducido.substring(operando.toString().length, inputIntroducido.length);
 	}
 	return operando;
 }
@@ -79,7 +88,7 @@ function analizarOperacion() {
 		operacion = operacion.toString();
 		inputIntroducido = inputIntroducido.substring(operacion.length, inputIntroducido.length);
 		if (operacion.match(estructuraUnOperador)) {
-                    unOperador = true;
+			unOperador = true;
 		}
 	}
 	return operacion;
@@ -116,9 +125,8 @@ function operar(operando1, operando2, operacion) {
 	}
 }
 function formatearCadena(cadena) {
-    cadena = cadena.toUpperCase().toString();
-    cadena = cadena.replace("PI", Math.PI);
-		cadena = cadena.replace(/E(?!N)/g, Math.E);
-		//cadena = cadena.replace(',', '.');
-    return cadena;
+	cadena = cadena.toUpperCase().toString();
+	cadena = cadena.replace(/PI/g, Math.PI);
+	cadena = cadena.replace(/E(?!N)/g, Math.E);
+	return cadena.replace(/,/g, '.');
 }
