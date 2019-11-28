@@ -2,64 +2,39 @@
 var estructuraOperando = /^[-+]?[0-9]+\.?[0-9]+|^[-+]?[0-9]/;
 var estructuraUnOperador = /\ABS|SEN|COS|TAN|LOG10|LOG2|LN|SQRT{1}/;
 var estructuraOperaciones = /^-|\+|\*|\/|\^|ABS|SEN|COS|TAN|LOG10|LOG2|LN|SQRT|RAIZ{1}/;
-var inputIntroducido, resultado, unOperador, error;
+var inputIntroducido, unOperador, error;
+var resultado = null;
 var operando1, operando2, operacion;
 
 function calcular() {
 	//asignamos la cadena introducida a una variable.
 	inputIntroducido = formatearCadena(document.getElementById('datosIntroducidos').innerHTML);
-	//se analiza la estructura y se calcula el resultado si no hay errores.
+        //se analiza la estructura y se calcula el resultado si no hay errores.
 	while (inputIntroducido.length > 0 && !error) {
 		analizarInput();
-		
 		if (!error) {
 			resultado = operar(parseFloat(operando1), parseFloat(operando2), operacion);
 		} else {
 			resultado = 'Operacion no valida';
 		}
 	}
-	document.getElementById('mostrarDatos').innerHTML = resultado;
+	console.log('Resultado: ' + resultado);
+        document.getElementById('mostrarDatos').innerHTML = resultado;
+        document.getElementById('datosIntroducidos').innerHTML = '';
 	resultado = null;
 	error = false;
 }
 function cambiarSigno() {
-	//asignamos la cadena introducida a una variable.
-	inputIntroducido = formatearCadena(document.getElementById('datosIntroducidos').innerHTML);
-	var inputOriginal = inputIntroducido;
-	//se analiza la estructura y se cambia el ultimo opeador si no hay errores.
-	console.log('***********************************');
-	while (inputIntroducido.length > 0 && !error) {
-		analizarInput();
-	}
-	var ultimoOperando;
-	if (operando2 !== null) {
-		ultimoOperando = operando2;
-	} else {
-		ultimoOperando = operando1;
-	}
-	if (ultimoOperando !== null && ultimoOperando == inputOriginal) {
-		error = false;
-	}
-	if (!error) {
-		var longitudOperando = inputOriginal.length - ultimoOperando.toString().length;
-		ultimoOperando *= -1;
-		if (ultimoOperando > 0) {
-			ultimoOperando = "+" + ultimoOperando;
-		}
-		var inputCambiado = inputOriginal.substr(0, longitudOperando) + ultimoOperando;
-		document.getElementById('datosIntroducidos').innerHTML = inputCambiado;
-	}
-	resultado = null;
-	error = false;
+	//se multiplica por -1 el numero que se esta introduciendo
+	numeroActual = formatearCadena(document.getElementById('mostrarDatos').innerHTML);
+        numeroActual = parseFloat(numeroActual) * -1;
+        document.getElementById('mostrarDatos').innerHTML = numeroActual;
 }
 function analizarInput() {
 	//se buscan operadores y operaciones, si la estructura esta mal dara error.
 	unOperador = false;
-	if (resultado === null) {
-		operando1 = analizarOperando();
-	} else {
-		operando1 = resultado;
-	}
+	operando1 = analizarOperando();
+
 	operacion = analizarOperacion();
 	if (!unOperador) {
 		operando2 = analizarOperando();
@@ -68,8 +43,9 @@ function analizarInput() {
 	}
 	console.log('operando1: ' + operando1);
 	console.log('operacion: ' + operacion);
-	console.log('operando2: ' + operando1);
+	console.log('operando2: ' + operando2);
 	console.log('ERROR: ' + error);
+        
 }
 function analizarOperando() {
 	var operando = inputIntroducido.match(estructuraOperando);
