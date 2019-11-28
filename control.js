@@ -1,7 +1,6 @@
-//expresiones regulares para operandos y operaciones
-var estructuraOperando = /^[-+]?[0-9]+\.?[0-9]+|^[-+]?[0-9]/;
-var estructuraUnOperador = /\ABS|SEN|COS|TAN|LOG10|LOG2|LN|SQRT{1}/;
-var estructuraOperaciones = /^-|\+|\*|\/|\^|ABS|SEN|COS|TAN|LOG10|LOG2|LN|SQRT|RAIZ{1}/;
+var regExOperando = /^[-+]?[0-9]+\.?[0-9]+|^[-+]?[0-9]/;
+var regExUnOperando = /\ABS|SEN|COS|TAN|LOG10|LOG2|LN|SQRT{1}/;
+var regExOperaciones = /^-|\+|\*|\/|\^|ABS|SEN|COS|TAN|LOG10|LOG2|LN|SQRT|RAIZ{1}/;
 var inputIntroducido, unOperador, error, operando1, operando2, operacion;
 var resultado = null;
 
@@ -22,12 +21,6 @@ function calcular() {
 	resultado = null;
 	error = false;
 }
-function cambiarSigno() {
-	//se multiplica por -1 el numero que se esta introduciendo
-	numeroActual = formatearCadena(document.getElementById('mostrarDatos').innerHTML);
-        numeroActual = parseFloat(numeroActual) * -1;
-        document.getElementById('mostrarDatos').innerHTML = numeroActual;
-}
 function analizarInput() {
 	//se buscan operadores y operaciones, si la estructura esta mal dara error.
 	unOperador = false;
@@ -36,13 +29,13 @@ function analizarInput() {
         } else {
             operando1 = analizarOperando();
         }
-	operacion = inputIntroducido.match(estructuraOperaciones);
+	operacion = inputIntroducido.match(regExOperaciones);
 	if (operacion === null) {
 		error = true;
 	} else {
 		operacion = operacion.toString();
 		inputIntroducido = inputIntroducido.substring(operacion.length, inputIntroducido.length);
-		if (operacion.match(estructuraUnOperador)) {
+		if (operacion.match(regExUnOperando)) {
 			unOperador = true;
 		}
                 console.log('unOperador: ' + unOperador);
@@ -61,7 +54,7 @@ function analizarInput() {
 }
 function analizarOperando() {
     console.log('buscar Operando: ' + inputIntroducido);
-	var operando = inputIntroducido.match(estructuraOperando);
+	var operando = inputIntroducido.match(regExOperando);
 	if (operando === null) {
 		error = true;
 	} else {
@@ -105,4 +98,10 @@ function formatearCadena(cadena) {
 	cadena = cadena.replace(/PI/g, Math.PI);
 	cadena = cadena.replace(/E(?!N)/g, Math.E);
 	return cadena.replace(/,/g, '.');
+}
+function cambiarSigno() {
+	//se multiplica por -1 el numero que se esta introduciendo
+	numeroActual = formatearCadena(document.getElementById('mostrarDatos').innerHTML);
+        numeroActual = parseFloat(numeroActual) * -1;
+        document.getElementById('mostrarDatos').innerHTML = numeroActual;
 }
