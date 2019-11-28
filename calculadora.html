@@ -8,12 +8,12 @@
   <script src="control.js"></script>
   <script>
     function comprobarBotones(valorPulsado) {
-      if (document.getElementById('datosIntroducidos').innerHTML === 'Operacion no valida' || 
-          document.getElementById('datosIntroducidos').innerHTML === 'NaN') {
+      if (document.getElementById('datosIntroducidos').innerHTML === 'Operacion no valida' ||
+        document.getElementById('datosIntroducidos').innerHTML === 'NaN') {
         document.getElementById('datosIntroducidos').innerHTML = valorPulsado;
       } else {
         document.getElementById('datosIntroducidos').innerHTML += valorPulsado;
-      }  
+      }
     }
     function resetearInput() {
       document.getElementById('datosIntroducidos').innerHTML = '';
@@ -23,18 +23,35 @@
       var resultado = document.getElementById('mostrarDatos').innerHTML;
       document.getElementById('datosIntroducidos').innerHTML = resultado;
     }
-    
+    function modoDibujo() {
+      var tamano = '500px';
+      var tamanoVacio = '0px';
+      var lienzo = document.getElementById('lienzo');
+      var mostraDatos = document.getElementById('mostrarDatos');
+      if (lienzo.style.visibility == "hidden") {
+        lienzo.style.visibility = "visible";
+        lienzo.style.width = tamano;
+        lienzo.style.height = tamano;
+      } else {
+        lienzo.style.visibility = "hidden";
+        lienzo.style.width = tamanoVacio;
+        lienzo.style.height = tamanoVacio;
+      }
+      
+      console.log(lienzo);
+    }
+
   </script>
 </head>
 
 <body onclick="calcular()">
-  
+
   <div id="chasis_calculadora">
     <div id="panel_pantalla">
-      <div id="boton_cero" class="boton_operacion" onclick="resetearInput()">CE</div>
-      <div class="pantallas" id="datosIntroducidos" style="width: 73%;"></div>
+      <div id="boton_cero" class="boton_operacion" onclick="resetearInput()">C</div>
+      <div class="pantallas" id="datosIntroducidos" aria-placeholder="OPERACION" style="width: 80%;"></div>
       <div class="pantallas" id="mostrarDatos"></div>
-      <canvas id="lienzo" width="100" height="100" hidden></canvas>
+      <canvas id="lienzo"></canvas>
     </div>
 
     <div class="panel" id="panel_botones_lateral">
@@ -82,9 +99,9 @@
       <div class="boton_operacion" onclick="comprobarBotones(this.innerHTML)">^</div>
       <div class="boton_operacion" onclick="comprobarBotones(this.innerHTML)">/</div>
       <br>
-      <div style="width: 90%;" onclick="modoDibujo()">Dibujo de funciones</div>
+      <div style="width: 100%;" onclick="modoDibujo()">Dibujo de funciones</div>
     </div>
-    
+
   </div>
 </body>
 

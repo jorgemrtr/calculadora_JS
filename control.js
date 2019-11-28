@@ -1,5 +1,5 @@
 //expresiones regulares para operandos y operaciones
-var estructuraOperando = /^[-+]?[0-9]+\.?[0-9]+|^[-+]?[0-9]/;
+var estructuraOperando = /^[-+]?[0-9]+\,?[0-9]+|^[-+]?[0-9]/;
 var estructuraUnOperador = /\ABS|SEN|COS|TAN|LOG10|LOG2|LN|SQRT{1}/;
 var estructuraOperaciones = /^-|\+|\*|\/|\^|ABS|SEN|COS|TAN|LOG10|LOG2|LN|SQRT|RAIZ{1}/;
 var inputIntroducido, resultado, unOperador, error;
@@ -118,10 +118,7 @@ function operar(operando1, operando2, operacion) {
 function formatearCadena(cadena) {
     cadena = cadena.toUpperCase().toString();
     cadena = cadena.replace("PI", Math.PI);
-    cadena = cadena.replace(/E(?!N)/g, Math.E);
+		cadena = cadena.replace(/E(?!N)/g, Math.E);
+		//cadena = cadena.replace(',', '.');
     return cadena;
-}
-function modoDibujo() {
-    lienzo = document.getElementById('lienzo');
-    console.log(lienzo);
 }
