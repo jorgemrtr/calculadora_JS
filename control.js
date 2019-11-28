@@ -13,7 +13,7 @@ function calcular() {
 		if (!error) {
 			resultado = operar(parseFloat(operando1), parseFloat(operando2), operacion);
 		} else {
-			resultado = 'Operacion no valida';
+			resultado = 'No valido';
 		}
 	}
         document.getElementById('mostrarDatos').innerHTML = resultado;

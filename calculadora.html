@@ -7,24 +7,34 @@
   <link rel="stylesheet" href="estilo.css">
   <script src="control.js"></script>
   <script>
+    /* funciones para eventos de boton al hacer click */
     function comprobarBotones(valorPulsado) {
       if(valorPulsado.className === 'boton_operacion') {
         var input = document.getElementById('mostrarDatos').innerHTML + valorPulsado.innerHTML;
-        document.getElementById('datosIntroducidos').innerHTML += input;
+        if (document.getElementById('datosIntroducidos').innerHTML == '0') {
+          document.getElementById('datosIntroducidos').innerHTML = input;
+        } else {
+          document.getElementById('datosIntroducidos').innerHTML += input;
+        }
         document.getElementById('mostrarDatos').innerHTML = '';
       } else {
-        document.getElementById('mostrarDatos').innerHTML += valorPulsado.innerHTML;
+        if (document.getElementById('mostrarDatos').innerHTML == '0' ) {
+          document.getElementById('mostrarDatos').innerHTML = valorPulsado.innerHTML;
+        } else {
+          document.getElementById('mostrarDatos').innerHTML += valorPulsado.innerHTML;
+        }
       }
     }
     function resetearInput() {
-      document.getElementById('datosIntroducidos').innerHTML = '';
-      document.getElementById('mostrarDatos').innerHTML = '';
+      document.getElementById('datosIntroducidos').innerHTML = '0';
+      document.getElementById('mostrarDatos').innerHTML = '0';
     }
     function mostrarResultado() {
       var input = document.getElementById('mostrarDatos').innerHTML;
       document.getElementById('datosIntroducidos').innerHTML += input;
       calcular();
     }
+    /* codigo para pintar funciones */
     function modoDibujo() {
       var tamano = '500px';
       var lienzo = document.getElementById('lienzo');
@@ -48,8 +58,8 @@
   <div id="chasis_calculadora">
     <div id="panel_pantalla">
       <div id="boton_cero" class="boton_operacion" onclick="resetearInput()">C</div>
-      <div class="pantallas" id="datosIntroducidos" style="width: 80%;"></div>
-      <div class="pantallas" id="mostrarDatos"></div>
+      <div class="pantallas" id="datosIntroducidos" style="width: 80%;">0</div>
+      <div class="pantallas" id="mostrarDatos">0</div>
       <canvas id="lienzo"></canvas>
     </div>
 
