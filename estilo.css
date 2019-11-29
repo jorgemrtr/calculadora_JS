@@ -12,6 +12,7 @@ body {
     left: 25%;
     border: 1px solid #d7d9dd;
     background-color: white;
+    overflow: visible;
 }
 
 #panel_pantalla {

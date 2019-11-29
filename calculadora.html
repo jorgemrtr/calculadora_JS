@@ -7,59 +7,87 @@
   <link rel="stylesheet" href="estilo.css">
   <script src="control.js"></script>
   <script>
-    /* funciones para eventos de boton al hacer click */
+    /* funcion para eventos de boton al hacer click */
     function comprobarBotones(valorPulsado) {
-      if(valorPulsado.className === 'boton_operacion') {
-        var input = document.getElementById('mostrarDatos').innerHTML + valorPulsado.innerHTML;
-        if (document.getElementById('datosIntroducidos').innerHTML == '0') {
-          document.getElementById('datosIntroducidos').innerHTML = input;
-        } else {
-          document.getElementById('datosIntroducidos').innerHTML += input;
-        }
-        document.getElementById('mostrarDatos').innerHTML = '';
-      } else {
-        if (document.getElementById('mostrarDatos').innerHTML == '0' ) {
-          document.getElementById('mostrarDatos').innerHTML = valorPulsado.innerHTML;
-        } else {
-          document.getElementById('mostrarDatos').innerHTML += valorPulsado.innerHTML;
-        }
+      if (valorPulsado.className === 'boton_operacion') {
+        escribirOperacion(valorPulsado.innerHTML);
+      } else if (valorPulsado.className === 'boton_numero') {
+        escribirOperando(valorPulsado.innerHTML);
       }
     }
+    /* funcion para eventos de teclado */
+    function comprobarTecla(evento) {
+      if (/\+|-|\*|\//.test(evento)) {
+        escribirOperacion(evento);
+      } else if (/\d|\./.test(evento)) {
+        escribirOperando(evento);
+      }
+    }
+    function escribirOperando(input) {
+      var pantallaInferior = document.getElementById('pantallaInferior');
+      if (pantallaInferior.innerHTML == '0') {
+        pantallaInferior.innerHTML = input;
+      } else {
+        pantallaInferior.innerHTML += input;
+      }
+    }
+    function escribirOperacion(input) {
+      var pantallaInferior = document.getElementById('pantallaInferior');
+      var pantallaSuperior = document.getElementById('pantallaSuperior');
+      var operando = pantallaInferior.innerHTML;
+      if (input == '-' && pantallaInferior.innerHTML == '0') {
+        pantallaInferior.innerHTML = input;
+      } else if (pantallaSuperior.innerHTML == '0') {
+        pantallaSuperior.innerHTML = operando + input;
+        document.getElementById('pantallaInferior').innerHTML = '0';
+      } else {
+        pantallaSuperior.innerHTML += operando + input;
+        document.getElementById('pantallaInferior').innerHTML = '0';
+      }
+      
+    }
+
     function resetearInput() {
-      document.getElementById('datosIntroducidos').innerHTML = '0';
-      document.getElementById('mostrarDatos').innerHTML = '0';
+      document.getElementById('pantallaSuperior').innerHTML = '0';
+      document.getElementById('pantallaInferior').innerHTML = '0';
     }
     function mostrarResultado() {
-      var input = document.getElementById('mostrarDatos').innerHTML;
-      document.getElementById('datosIntroducidos').innerHTML += input;
+      var input = document.getElementById('pantallaInferior').innerHTML;
+      document.getElementById('pantallaSuperior').innerHTML += input;
       calcular();
     }
+
     /* codigo para pintar funciones */
     function modoDibujo() {
       var tamano = '500px';
       var lienzo = document.getElementById('lienzo');
+      console.log(lienzo);
       if (lienzo.style.visibility === "hidden") {
         lienzo.style.visibility = "visible";
         lienzo.style.width = tamano;
         lienzo.style.height = tamano;
+        document.getElementById("boton_X").style.visibility = "visible";
+        document.getElementById("boton_Y").style.visibility = "visible";
       } else {
         lienzo.style.visibility = "hidden";
         lienzo.style.width = '0px;';
         lienzo.style.height = '0px';
+        document.getElementById("boton_X").style.visibility = "hidden";
+        document.getElementById("boton_Y").style.visibility = "hidden";
       }
-      console.log(lienzo);
     }
+
 
   </script>
 </head>
 
-<body>
+<body onkeydown="comprobarTecla(event.key)">
 
   <div id="chasis_calculadora">
     <div id="panel_pantalla">
       <div id="boton_cero" class="boton_operacion" onclick="resetearInput()">C</div>
-      <div class="pantallas" id="datosIntroducidos" style="width: 80%;">0</div>
-      <div class="pantallas" id="mostrarDatos">0</div>
+      <div class="pantallas" id="pantallaSuperior" style="width: 80%;">0</div>
+      <div class="pantallas" id="pantallaInferior">0</div>
       <canvas id="lienzo"></canvas>
     </div>
 
@@ -79,8 +107,8 @@
       <div class="boton_operacion" onclick="comprobarBotones(this)">sqrt</div>
       <div class="boton_operacion" onclick="comprobarBotones(this)">raiz</div>
       <br>
-      <div class="boton_operacion" onclick="comprobarBotones(this)">X</div>
-      <div class="boton_operacion" onclick="comprobarBotones(this)">Y</div>
+      <div class="boton_operacion" id="boton_X" style="visibility: hidden;" onclick="comprobarBotones(this)">X</div>
+      <div class="boton_operacion" id="boton_Y" style="visibility: hidden;" onclick="comprobarBotones(this)">Y</div>
     </div>
 
     <div class="panel" id="panel_botones">

@@ -6,7 +6,7 @@ var resultado = null;
 
 function calcular() {
 	//asignamos la cadena introducida a una variable.
-	inputIntroducido = formatearCadena(document.getElementById('datosIntroducidos').innerHTML);
+	inputIntroducido = formatearCadena(document.getElementById('pantallaSuperior').innerHTML);
         //se analiza la estructura y se calcula el resultado si no hay errores.
 	while (inputIntroducido.length > 0 && !error) {
 		analizarInput();
@@ -16,8 +16,8 @@ function calcular() {
 			resultado = 'No valido';
 		}
 	}
-        document.getElementById('mostrarDatos').innerHTML = resultado;
-        document.getElementById('datosIntroducidos').innerHTML = '';
+        document.getElementById('pantallaInferior').innerHTML = resultado;
+        document.getElementById('pantallaSuperior').innerHTML = '';
 	resultado = null;
 	error = false;
 }
@@ -101,7 +101,7 @@ function formatearCadena(cadena) {
 }
 function cambiarSigno() {
 	//se multiplica por -1 el numero que se esta introduciendo
-	numeroActual = formatearCadena(document.getElementById('mostrarDatos').innerHTML);
+	numeroActual = formatearCadena(document.getElementById('pantallaInferior').innerHTML);
         numeroActual = parseFloat(numeroActual) * -1;
-        document.getElementById('mostrarDatos').innerHTML = numeroActual;
+        document.getElementById('pantallaInferior').innerHTML = numeroActual;
 }
