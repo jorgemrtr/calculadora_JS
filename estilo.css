@@ -3,6 +3,13 @@ body {
     font-size: 1.6em;
 }
 
+div {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none; 
+    user-select: none;    
+}
+
 #chasis_calculadora {
     width: 45%;
     height: 30em;
@@ -10,7 +17,6 @@ body {
     float: left;
     position: relative;
     left: 25%;
-    border: 1px solid #d7d9dd;
     background-color: white;
     overflow: visible;
 }
@@ -78,14 +84,12 @@ div.boton_numero {
 div.boton_numero:hover {
     background-color: #e8eaeb;
 }
-
 div.boton_operacion {
     background-color: #dfe1e5;
 }
 div.boton_operacion:hover {
     background-color: #d7d9dd;
 }
-
 #panel_botones div.boton_calcular {
     background-color: #4285f4;
     color: white;
@@ -96,7 +100,6 @@ div.boton_operacion:hover {
 }
 
 #lienzo{
-    visibility: hidden;
     width: 0px;
     height: 0px;
 }

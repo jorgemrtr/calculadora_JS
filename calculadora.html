@@ -1,145 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <title>Calculadora</title>
-  <link rel="stylesheet" href="estilo.css">
-  <script src="control.js"></script>
-  <script>
-    /* funcion para eventos de boton al hacer click */
-    function comprobarBotones(valorPulsado) {
-      if (valorPulsado.className === 'boton_operacion') {
-        escribirOperacion(valorPulsado.innerHTML);
-      } else if (valorPulsado.className === 'boton_numero') {
-        escribirOperando(valorPulsado.innerHTML);
-      }
-    }
-    /* funcion para eventos de teclado */
-    function comprobarTecla(evento) {
-      if (/\+|-|\*|\//.test(evento)) {
-        escribirOperacion(evento);
-      } else if (/\d|\./.test(evento)) {
-        escribirOperando(evento);
-      }
-    }
-    function escribirOperando(input) {
-      var pantallaInferior = document.getElementById('pantallaInferior');
-      if (pantallaInferior.innerHTML == '0') {
-        pantallaInferior.innerHTML = input;
-      } else {
-        pantallaInferior.innerHTML += input;
-      }
-    }
-    function escribirOperacion(input) {
-      var pantallaInferior = document.getElementById('pantallaInferior');
-      var pantallaSuperior = document.getElementById('pantallaSuperior');
-      var operando = pantallaInferior.innerHTML;
-      if (input == '-' && pantallaInferior.innerHTML == '0') {
-        pantallaInferior.innerHTML = input;
-      } else if (pantallaSuperior.innerHTML == '0') {
-        pantallaSuperior.innerHTML = operando + input;
-        document.getElementById('pantallaInferior').innerHTML = '0';
-      } else {
-        pantallaSuperior.innerHTML += operando + input;
-        document.getElementById('pantallaInferior').innerHTML = '0';
+  <head>
+    <meta charset="UTF-8">
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="estilo.css">
+    <script src="procesarCalculo.js"></script>
+    <script src="controlInterfaz.js"></script>
+    <script src="pintarCanvas.js"></script>
+    <script>
+      function modoDibujo() {
+          var tamano = '100%';
+          var lienzo = document.getElementById('lienzo');
+          var pantalla = document.getElementById('panel_pantalla');
+          //Se muestra u oculta el canvas dependiendo de la visibilidad anterior
+          if (lienzo.style.visibility === "hidden") {
+              lienzo.style.visibility = "visible";
+              lienzo.style.width = tamano;
+              lienzo.style.height = tamano;
+              document.getElementById("boton_X").style.visibility = "visible";
+              document.getElementById("boton_Y").style.visibility = "visible";
+              pantalla.style.margin = "0% 5%";
+              pintar();
+          } else if (lienzo.style.visibility === "visible") {
+              lienzo.style.visibility = "hidden";
+              lienzo.style.width = '0px;';
+              lienzo.style.height = '0px';
+              document.getElementById("boton_X").style.visibility = "hidden";
+              document.getElementById("boton_Y").style.visibility = "hidden";
+              pantalla.style.margin = "5%";
+              limpiar();
+          }
       }
       
-    }
-
-    function resetearInput() {
-      document.getElementById('pantallaSuperior').innerHTML = '0';
-      document.getElementById('pantallaInferior').innerHTML = '0';
-    }
-    function mostrarResultado() {
-      var input = document.getElementById('pantallaInferior').innerHTML;
-      document.getElementById('pantallaSuperior').innerHTML += input;
-      calcular();
-    }
-
-    /* codigo para pintar funciones */
-    function modoDibujo() {
-      var tamano = '500px';
-      var lienzo = document.getElementById('lienzo');
-      console.log(lienzo);
-      if (lienzo.style.visibility === "hidden") {
-        lienzo.style.visibility = "visible";
-        lienzo.style.width = tamano;
-        lienzo.style.height = tamano;
-        document.getElementById("boton_X").style.visibility = "visible";
-        document.getElementById("boton_Y").style.visibility = "visible";
-      } else {
-        lienzo.style.visibility = "hidden";
-        lienzo.style.width = '0px;';
-        lienzo.style.height = '0px';
-        document.getElementById("boton_X").style.visibility = "hidden";
-        document.getElementById("boton_Y").style.visibility = "hidden";
+      function cambiarSigno() {
+        //se multiplica por -1 el numero que se esta introduciendo
+        numeroActual = formatearCadena(document.getElementById('pantallaInferior').innerHTML);
+        numeroActual = parseFloat(numeroActual) * -1;
+        document.getElementById('pantallaInferior').innerHTML = numeroActual;
       }
-    }
 
+    </script>
+  </head>
 
-  </script>
-</head>
+  <body onkeydown="comprobarTecla(event.key)">
 
-<body onkeydown="comprobarTecla(event.key)">
+    <div id="chasis_calculadora">
+      <div id="panel_pantalla">
+        <div id="boton_cero" class="boton_operacion" onclick="resetearInput()">C</div>
+        <div class="pantallas" id="pantallaSuperior" style="width: 80%;">0</div>
+        <div class="pantallas" id="pantallaInferior">0</div>
+        <canvas id="lienzo" style="visibility: hidden;"></canvas>
+      </div>
 
-  <div id="chasis_calculadora">
-    <div id="panel_pantalla">
-      <div id="boton_cero" class="boton_operacion" onclick="resetearInput()">C</div>
-      <div class="pantallas" id="pantallaSuperior" style="width: 80%;">0</div>
-      <div class="pantallas" id="pantallaInferior">0</div>
-      <canvas id="lienzo"></canvas>
+      <div class="panel" id="panel_botones_lateral">
+        <div class="boton_numero" onclick="comprobarBotones(this)">E</div>
+        <div class="boton_numero" onclick="comprobarBotones(this)">PI</div>
+        <br>
+        <div class="boton_operacion" onclick="comprobarBotones(this)">sen</div>
+        <div class="boton_operacion" onclick="comprobarBotones(this)">cos</div>
+        <br>
+        <div class="boton_operacion" onclick="comprobarBotones(this)">tan</div>
+        <div class="boton_operacion" onclick="comprobarBotones(this)">log10</div>
+        <br>
+        <div class="boton_operacion" onclick="comprobarBotones(this)">log2</div>
+        <div class="boton_operacion" onclick="comprobarBotones(this)">ln</div>
+        <br>
+        <div class="boton_operacion" onclick="comprobarBotones(this)">sqrt</div>
+        <div class="boton_operacion" onclick="comprobarBotones(this)">raiz</div>
+        <br>
+        <div class="boton_operacion" id="boton_X" style="visibility: hidden;" onclick="comprobarBotones(this)">X</div>
+        <div class="boton_operacion" id="boton_Y" style="visibility: hidden;" onclick="comprobarBotones(this)">Y</div>
+      </div>
+
+      <div class="panel" id="panel_botones">
+        <div class="boton_numero" onclick="comprobarBotones(this)">7</div>
+        <div class="boton_numero" onclick="comprobarBotones(this)">8</div>
+        <div class="boton_numero" onclick="comprobarBotones(this)">9</div>
+        <div class="boton_operacion" onclick="comprobarBotones(this)">+</div>
+        <br>
+        <div class="boton_numero" onclick="comprobarBotones(this)">4</div>
+        <div class="boton_numero" onclick="comprobarBotones(this)">5</div>
+        <div class="boton_numero" onclick="comprobarBotones(this)">6</div>
+        <div class="boton_operacion" onclick="comprobarBotones(this)">-</div>
+        <br>
+        <div class="boton_numero" onclick="comprobarBotones(this)">1</div>
+        <div class="boton_numero" onclick="comprobarBotones(this)">2</div>
+        <div class="boton_numero" onclick="comprobarBotones(this)">3</div>
+        <div class="boton_operacion" onclick="comprobarBotones(this)">*</div>
+        <br>
+        <div class="boton_numero" onclick="comprobarBotones(this)">0</div>
+        <div class="boton_numero" onclick="comprobarBotones(this)">,</div>
+        <div class="boton_calcular" onclick="mostrarResultado()">=</div>
+        <br>
+        <div class="boton_operacion" onclick="cambiarSigno()">+ / -</div>
+        <div class="boton_operacion" onclick="comprobarBotones(this)">abs</div>
+        <div class="boton_operacion" onclick="comprobarBotones(this)">^</div>
+        <div class="boton_operacion" onclick="comprobarBotones(this)">/</div>
+        <br>
+        <div style="width: 100%;" onclick="modoDibujo()">Dibujo de funciones</div>
+      </div>
+
     </div>
-
-    <div class="panel" id="panel_botones_lateral">
-      <div class="boton_numero" onclick="comprobarBotones(this)">E</div>
-      <div class="boton_numero" onclick="comprobarBotones(this)">PI</div>
-      <br>
-      <div class="boton_operacion" onclick="comprobarBotones(this)">sen</div>
-      <div class="boton_operacion" onclick="comprobarBotones(this)">cos</div>
-      <br>
-      <div class="boton_operacion" onclick="comprobarBotones(this)">tan</div>
-      <div class="boton_operacion" onclick="comprobarBotones(this)">log10</div>
-      <br>
-      <div class="boton_operacion" onclick="comprobarBotones(this)">log2</div>
-      <div class="boton_operacion" onclick="comprobarBotones(this)">ln</div>
-      <br>
-      <div class="boton_operacion" onclick="comprobarBotones(this)">sqrt</div>
-      <div class="boton_operacion" onclick="comprobarBotones(this)">raiz</div>
-      <br>
-      <div class="boton_operacion" id="boton_X" style="visibility: hidden;" onclick="comprobarBotones(this)">X</div>
-      <div class="boton_operacion" id="boton_Y" style="visibility: hidden;" onclick="comprobarBotones(this)">Y</div>
-    </div>
-
-    <div class="panel" id="panel_botones">
-      <div class="boton_numero" onclick="comprobarBotones(this)">7</div>
-      <div class="boton_numero" onclick="comprobarBotones(this)">8</div>
-      <div class="boton_numero" onclick="comprobarBotones(this)">9</div>
-      <div class="boton_operacion" onclick="comprobarBotones(this)">+</div>
-      <br>
-      <div class="boton_numero" onclick="comprobarBotones(this)">4</div>
-      <div class="boton_numero" onclick="comprobarBotones(this)">5</div>
-      <div class="boton_numero" onclick="comprobarBotones(this)">6</div>
-      <div class="boton_operacion" onclick="comprobarBotones(this)">-</div>
-      <br>
-      <div class="boton_numero" onclick="comprobarBotones(this)">1</div>
-      <div class="boton_numero" onclick="comprobarBotones(this)">2</div>
-      <div class="boton_numero" onclick="comprobarBotones(this)">3</div>
-      <div class="boton_operacion" onclick="comprobarBotones(this)">*</div>
-      <br>
-      <div class="boton_numero" onclick="comprobarBotones(this)">0</div>
-      <div class="boton_numero" onclick="comprobarBotones(this)">,</div>
-      <div class="boton_calcular" onclick="mostrarResultado()">=</div>
-      <br>
-      <div class="boton_operacion" onclick="cambiarSigno()">+ / -</div>
-      <div class="boton_operacion" onclick="comprobarBotones(this)">abs</div>
-      <div class="boton_operacion" onclick="comprobarBotones(this)">^</div>
-      <div class="boton_operacion" onclick="comprobarBotones(this)">/</div>
-      <br>
-      <div style="width: 100%;" onclick="modoDibujo()">Dibujo de funciones</div>
-    </div>
-
-  </div>
-</body>
+  </body>
 
 </html>

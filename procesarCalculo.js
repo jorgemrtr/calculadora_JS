@@ -45,20 +45,17 @@ function analizarInput() {
 	} else {
 		operando2 = null;
 	}
-        
 	console.log('operando1: ' + operando1);
 	console.log('operacion: ' + operacion);
 	console.log('operando2: ' + operando2);
 	console.log('ERROR: ' + error);
-        
 }
 function analizarOperando() {
-    console.log('buscar Operando: ' + inputIntroducido);
 	var operando = inputIntroducido.match(regExOperando);
 	if (operando === null) {
-		error = true;
+            error = true;
 	} else {
-		inputIntroducido = inputIntroducido.substring(operando.toString().length, inputIntroducido.length);
+            inputIntroducido = inputIntroducido.substring(operando.toString().length, inputIntroducido.length);
 	}
 	return operando;
 }
@@ -99,9 +96,10 @@ function formatearCadena(cadena) {
 	cadena = cadena.replace(/E(?!N)/g, Math.E);
 	return cadena.replace(/,/g, '.');
 }
-function cambiarSigno() {
-	//se multiplica por -1 el numero que se esta introduciendo
-	numeroActual = formatearCadena(document.getElementById('pantallaInferior').innerHTML);
-        numeroActual = parseFloat(numeroActual) * -1;
-        document.getElementById('pantallaInferior').innerHTML = numeroActual;
+
+function calcularFuncion() {
+    inputIntroducido = formatearCadena(document.getElementById('pantallaSuperior').innerHTML);
+    if (inputIntroducido.match()) {
+        
+    }
 }
