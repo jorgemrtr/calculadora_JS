@@ -54,6 +54,6 @@ function pintarRayas() {
     }
 }
 
-function pintarValores(datos) {
+function pintarValores(datosX, datosY) {
     
 }

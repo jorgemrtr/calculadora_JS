@@ -43,13 +43,13 @@
     </script>
   </head>
 
-  <body onkeydown="comprobarTecla(event.key)">
+  <body onkeydown="comprobarTecla(event)">
 
     <div id="chasis_calculadora">
       <div id="panel_pantalla">
         <div id="boton_cero" class="boton_operacion" onclick="resetearInput()">C</div>
-        <div class="pantallas" id="pantallaSuperior" style="width: 80%;">0</div>
-        <div class="pantallas" id="pantallaInferior">0</div>
+        <div class="pantallas" id="pantallaSuperior" style="width: 80%;"></div>
+        <div class="pantallas" id="pantallaInferior"></div>
         <canvas id="lienzo" style="visibility: hidden;"></canvas>
       </div>
 
