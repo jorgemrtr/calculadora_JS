@@ -1,19 +1,19 @@
-var canvas, lienzo, totalX, totalY;
+var lienzo, totalX, totalY;
 var colorEje = 'black';
 var colorPuntos = 'black';
 var tamanoRaya = 3;
 var separacionRaya = 10;
+var canvas = document.getElementById('lienzo');
 
 function pintar() {
-    canvas = document.getElementById('lienzo');
     lienzo = canvas.getContext('2d');
     //codigo para que las lineas sean completamente opacas
     totalX = canvas.width;
     totalY = canvas.height;
     lienzo.beginPath();
+    lienzo.lineWidth = 10;
     pintarEjes();
     pintarRayas();
-    lienzo.stroke();
     lienzo.stroke();
     lienzo.closePath();
 }
@@ -21,7 +21,6 @@ function pintar() {
 function limpiar() {
     lienzo.clearRect(0, 0, totalX, totalY);
     lienzo = null;
-    canvas = null;
     totalX = null;
     totalY = null;
 }

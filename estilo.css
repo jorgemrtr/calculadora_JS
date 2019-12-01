@@ -10,21 +10,10 @@ div {
     user-select: none;    
 }
 
-#chasis_calculadora {
-    width: 45%;
-    height: 30em;
-    text-align: center;
-    float: left;
-    position: relative;
-    left: 25%;
-    background-color: white;
-    overflow: visible;
-}
-
 #panel_pantalla {
     margin: 5%;
     float: left;
-    overflow: visible;
+    height: 19.9%;
     width: 90%;
     outline: #d7d9dd solid 1px;
 }
@@ -32,9 +21,9 @@ div {
 #panel_pantalla div {
     float: left;
     font-size: 1.6em;
-    padding: 0.3em 5% 0.3em 5%;
-    height: 1em;
-    width: 90%;
+    padding: 2.5%;
+    height: 20%;
+    width: 95%;
     overflow: hidden;
 }
 
@@ -51,7 +40,7 @@ div {
 
 .panel {
     float: left;
-    height: 17.6em;
+    height: 50%;
 }
 
 #panel_botones {
@@ -66,7 +55,7 @@ div {
 
 .panel div {
     float: left;
-    padding: 1em 0 1em 0;
+    padding: 1em 0;
     height: 1em;
     outline: white solid 1px;
 }
@@ -78,16 +67,21 @@ div {
     width: 25%;
 }
 
+#panel_dibujo div {
+    background-color: #dfe1e5;
+    outline: white solid 1px;
+}
+
 div.boton_numero {
     background-color: #f1f3f4;
 }
 div.boton_numero:hover {
     background-color: #e8eaeb;
 }
-div.boton_operacion {
+div.boton_operacion, div.boton_funcion {
     background-color: #dfe1e5;
 }
-div.boton_operacion:hover {
+div.boton_operacion:hover, div.boton_funcion:hover {
     background-color: #d7d9dd;
 }
 #panel_botones div.boton_calcular {
@@ -100,6 +94,6 @@ div.boton_operacion:hover {
 }
 
 #lienzo{
-    width: 0px;
-    height: 0px;
+    width: 20em;
+    height: 20em;
 }

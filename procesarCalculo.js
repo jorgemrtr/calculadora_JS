@@ -4,9 +4,9 @@ var regExOperaciones = /^-|\+|\*|\/|\^|ABS|SEN|COS|TAN|LOG10|LOG2|LN|SQRT|RAIZ{1
 var inputIntroducido, unOperador, error, operando1, operando2, operacion;
 var resultado = null;
 
-function calcular() {
+function calcular(operacionIntroducida) {
     //asignamos la cadena introducida a una variable.
-    inputIntroducido = formatearCadena(document.getElementById('pantallaSuperior').innerHTML);
+    inputIntroducido = formatearCadena(operacionIntroducida);
     //se analiza la estructura y se calcula el resultado si no hay errores.
     while (inputIntroducido.length > 0 && !error) {
         analizarInput();
@@ -16,10 +16,10 @@ function calcular() {
             resultado = 'No valido';
         }
     }
-    document.getElementById('pantallaInferior').innerHTML = resultado;
-    document.getElementById('pantallaSuperior').innerHTML = '';
+    var devolverResultado = resultado;
     resultado = null;
     error = false;
+    return devolverResultado;
 }
 function analizarInput() {
     //se buscan operadores y operaciones, si la estructura esta mal dara error.
@@ -91,21 +91,16 @@ function operar(operando1, operando2, operacion) {
     } else if (operacion === 'SQRT') {
         resultado = Math.sqrt(operando1);
     }
-    //si tiene decimales se muestran 11 para evitar problema de coma florante
+    //si tiene decimales se muestran 11 para evitar problemas de coma florante
     if (resultado % 1 != 0) {
         resultado = parseFloat(resultado.toPrecision(11));
     }
     return resultado;
 }
-function formatearCadena(cadena) {
-    cadena = cadena.toUpperCase().toString();
-    cadena = cadena.replace(/PI/g, Math.PI);
-    cadena = cadena.replace(/E(?!N)/g, Math.E);
-    return cadena.replace(/,/g, '.');
-}
+
 
 function calcularFuncion() {
-    inputIntroducido = formatearCadena(document.getElementById('pantallaSuperior').innerHTML);
+    inputIntroducido = formatearCadena(pantallaSuperior.innerHTML);
     if (inputIntroducido.match()) {
 
     }

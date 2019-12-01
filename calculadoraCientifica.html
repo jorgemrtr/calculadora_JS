@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora</title>
+  <link rel="stylesheet" href="estilo.css">
+  <style>
+    #chasis_calculadora {
+      width: 50%;
+      height: 30em;
+      text-align: center;
+      float: left;
+      position: absolute;
+      left: 25%;
+      background-color: white;
+      overflow: visible;
+    }
+
+    #panel_dibujo{
+      width: 90%;
+      margin: 0 5%;
+      float: left;
+    }
+
+    #panel_dibujo div{
+      padding: 2.5% 0;
+    }
+  </style>
+</head>
+
+<body onkeydown="comprobarTecla(event)">
+
+  <div id="chasis_calculadora">
+    <div id="panel_pantalla">
+      <div id="boton_cero" class="boton_operacion" onclick="resetearPantallas()">C</div>
+      <div class="pantallas" id="pantallaSuperior" style="width: 85%;"></div>
+      <div class="pantallas" id="pantallaInferior"></div>
+    </div>
+
+    <div class="panel" id="panel_botones_lateral">
+      <div class="boton_numero" onclick="comprobarBotones(this)">E</div>
+      <div class="boton_numero" onclick="comprobarBotones(this)">PI</div>
+      <br>
+      <div class="boton_operacion" onclick="comprobarBotones(this)">sen</div>
+      <div class="boton_operacion" onclick="comprobarBotones(this)">cos</div>
+      <br>
+      <div class="boton_operacion" onclick="comprobarBotones(this)">tan</div>
+      <div class="boton_operacion" onclick="comprobarBotones(this)">log10</div>
+      <br>
+      <div class="boton_operacion" onclick="comprobarBotones(this)">log2</div>
+      <div class="boton_operacion" onclick="comprobarBotones(this)">ln</div>
+      <br>
+      <div class="boton_operacion" onclick="comprobarBotones(this)">sqrt</div>
+      <div class="boton_operacion" onclick="comprobarBotones(this)">raiz</div>
+      <br>
+    </div>
+
+    <div class="panel" id="panel_botones">
+      <div class="boton_numero" onclick="comprobarBotones(this)">7</div>
+      <div class="boton_numero" onclick="comprobarBotones(this)">8</div>
+      <div class="boton_numero" onclick="comprobarBotones(this)">9</div>
+      <div class="boton_operacion" onclick="comprobarBotones(this)">+</div>
+      <br>
+      <div class="boton_numero" onclick="comprobarBotones(this)">4</div>
+      <div class="boton_numero" onclick="comprobarBotones(this)">5</div>
+      <div class="boton_numero" onclick="comprobarBotones(this)">6</div>
+      <div class="boton_operacion" onclick="comprobarBotones(this)">-</div>
+      <br>
+      <div class="boton_numero" onclick="comprobarBotones(this)">1</div>
+      <div class="boton_numero" onclick="comprobarBotones(this)">2</div>
+      <div class="boton_numero" onclick="comprobarBotones(this)">3</div>
+      <div class="boton_operacion" onclick="comprobarBotones(this)">*</div>
+      <br>
+      <div class="boton_numero" onclick="comprobarBotones(this)">0</div>
+      <div class="boton_numero" onclick="comprobarBotones(this)">,</div>
+      <div class="boton_calcular" onclick="botonOperar()">=</div>
+      <br>
+      <div class="boton_operacion" onclick="cambiarSigno()">+ / -</div>
+      <div class="boton_operacion" onclick="comprobarBotones(this)">abs</div>
+      <div class="boton_operacion" onclick="comprobarBotones(this)">^</div>
+      <div class="boton_operacion" onclick="comprobarBotones(this)">/</div>
+      <br>
+    </div>
+    <div id="panel_dibujo">
+      <div onclick="window.location.replace('calculadoraFunciones.html')">Modo Dibujo</div>
+    </div>
+  </div>
+
+  <script src="procesarCalculo.js"></script>
+  <script src="controlInterfaz.js"></script>
+
+</body>
+
+</html>
