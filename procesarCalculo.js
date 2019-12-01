@@ -61,18 +61,6 @@ function analizarOperando() {
     return operando;
 }
 function operar(operando1, operando2, operacion) {
-    var numDec;
-    if (operando1.toString().indexOf('.') !== -1) {
-        numDec = operando1.toString().split(".")[1].length;
-    } else {
-        numDec = 1;
-    }
-    var dividir = '1';
-    for (var i = 0; i < numDec; i++) {
-        dividir + '0';
-    }
-    numDec = parseInt(numDec);
-    operando1 = operando1 * numDec;
     var resultado;
     if (operacion === '-') {
         resultado = operando1 - operando2;
@@ -85,7 +73,7 @@ function operar(operando1, operando2, operacion) {
     } else if (operacion === '^') {
         resultado = operando1 ** operando2;
     } else if (operacion === 'RAIZ') {
-        resultado = Math.pow(operando2, 1 / operando1);
+        resultado = Math.pow(operando2, operando1);
     } else if (operacion === 'ABS') {
         resultado = Math.abs(operando1);
     } else if (operacion === 'SEN') {
@@ -103,7 +91,11 @@ function operar(operando1, operando2, operacion) {
     } else if (operacion === 'SQRT') {
         resultado = Math.sqrt(operando1);
     }
-    return resultado/numDec;
+    //si tiene decimales se muestran 11 para evitar problema de coma florante
+    if (resultado % 1 != 0) {
+        resultado = parseFloat(resultado.toPrecision(11));
+    }
+    return resultado;
 }
 function formatearCadena(cadena) {
     cadena = cadena.toUpperCase().toString();
