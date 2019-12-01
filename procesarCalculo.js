@@ -1,13 +1,12 @@
 var regExOperando = /^[-+]?[0-9]+\.?[0-9]+|^[-+]?[0-9]/;
-var regExUnOperando = /\ABS|SEN|COS|TAN|LOG10|LOG2|LN|SQRT{1}/;
+var regExUnOperando = /^(ABS|SEN|COS|TAN|LOG10|LOG2|LN|SQRT){1}/;
 var regExOperaciones = /^-|\+|\*|\/|\^|ABS|SEN|COS|TAN|LOG10|LOG2|LN|SQRT|RAIZ{1}/;
 var inputIntroducido, unOperador, error, operando1, operando2, operacion;
 var resultado = null;
 
-function calcular(operacionIntroducida) {
-    //asignamos la cadena introducida a una variable.
+/* se encarga de gestionar el analisis y calculo a partir de la cadena recibida */
+function calculadora(operacionIntroducida) {
     inputIntroducido = formatearCadena(operacionIntroducida);
-    //se analiza la estructura y se calcula el resultado si no hay errores.
     while (inputIntroducido.length > 0 && !error) {
         analizarInput();
         if (!error) {
@@ -21,36 +20,32 @@ function calcular(operacionIntroducida) {
     error = false;
     return devolverResultado;
 }
+
+//analiza la estructura siguiendo el orden: operando1 > operacion > operando2
 function analizarInput() {
-    //se buscan operadores y operaciones, si la estructura esta mal dara error.
-    unOperador = false;
+    unOperador = false; 
     if (resultado !== null) {
         operando1 = resultado;
     } else {
-        operando1 = analizarOperando();
+        operando1 = analizarOperando(); //operando1
     }
-    operacion = inputIntroducido.match(regExOperaciones);
-    if (operacion === null) {
-        error = true;
-    } else {
-        operacion = operacion.toString();
-        inputIntroducido = inputIntroducido.substring(operacion.length, inputIntroducido.length);
-        if (operacion.match(regExUnOperando)) {
-            unOperador = true;
-        }
-        console.log('unOperador: ' + unOperador);
-    }
+    operacion = analizarOperacion(); //operacion
     if (!unOperador) {
-        operando2 = analizarOperando();
+        operando2 = analizarOperando(); //operando2
     } else {
         operando2 = null;
     }
+    console.log('unOperador: ' + unOperador);
     console.log('operando1: ' + operando1);
     console.log('operacion: ' + operacion);
     console.log('operando2: ' + operando2);
     console.log('ERROR: ' + error);
     console.log('inputRestante : ' + inputIntroducido);
 }
+
+
+/* comprueba que la primera parte del input sea un operando, si es correcto lo guarda y elimina 
+del input, si no da error*/
 function analizarOperando() {
     var operando = inputIntroducido.match(regExOperando);
     if (operando === null) {
@@ -60,6 +55,24 @@ function analizarOperando() {
     }
     return operando;
 }
+
+/* comprueba que la primera parte del input sea una operacion, si es correcto lo guarda y elimina 
+del input, si no da error. Tambien controla si la operacion es de uno o varios operandos */
+function analizarOperacion() {
+    var operacion = inputIntroducido.match(regExOperaciones);
+    if (operacion === null) {
+        error = true;
+    } else {
+        operacion = operacion.toString();
+        inputIntroducido = inputIntroducido.substring(operacion.length, inputIntroducido.length);
+        if (operacion.match(regExUnOperando)) {
+            unOperador = true;
+        }
+    }
+    return operacion;
+}
+
+/* opera los dos operandos en funcion de la operacion recibida */
 function operar(operando1, operando2, operacion) {
     var resultado;
     if (operacion === '-') {
