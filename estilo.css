@@ -31,22 +31,29 @@ div {
     overflow: hidden;
 }
 
-#boton_cero {
-    width: 10%;
-}
-
 #pantallaInferior {
     width: 100%;
 }
 
 #boton_cero, .pantallas{
-    border-right: none;
     padding: 0.25em 0;
 }
 
 .pantallas {
     text-align: right;
 }
+
+#cambiarModo {
+    background-color: #dfe1e5;
+    outline: white solid 1px;
+    width: 90%;
+    margin: 0 5%;
+    padding: 2.5% 0;
+    float: left;
+  }
+  #cambiarModo:hover {
+    background-color: #d7d9dd;
+  }
 
 .panel {
     float: left;

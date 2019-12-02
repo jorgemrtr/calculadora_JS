@@ -1,12 +1,13 @@
 var colorEje = 'black';
-var colorPuntos = 'black';
-var tamanoRaya = 6;
+var colorPuntos = 'blue';
+var tamanoRaya = 4;
 var separacionRaya = 20;
-var canvas = document.getElementById('lienzo');
-var lienzo, totalX, totalY;
+var canvas, lienzo, totalX, totalY;
 var primerDato = true;
+pintarBase();
 
 function pintarBase() {
+    canvas = document.getElementById('lienzo');
     lienzo = canvas.getContext('2d');
     totalX = canvas.width;
     totalY = canvas.height;
@@ -19,9 +20,6 @@ function pintarBase() {
 
 function limpiar() {
     lienzo.clearRect(0, 0, totalX, totalY);
-    lienzo = null;
-    totalX = null;
-    totalY = null;
 }
 
 function pintarEjes() {
@@ -53,6 +51,15 @@ function pintarRayas() {
 }
 
 function pintarValores(datoX, datoY) {
+    //hacer la conversion de los datos, el punto 0,0 corresponde con la mitad de la anchura y altura
+    console.log('datos originales');
+    console.log(datoX);
+    console.log(datoY);
+    datoX += (totalX/2);
+    datoY += (totalY/2);
+    console.log('datos canvas');
+    console.log(datoX);
+    console.log(datoY);
     lienzo.beginPath();
     lienzo.strokeStyle = colorPuntos;
     if (primerDato) {

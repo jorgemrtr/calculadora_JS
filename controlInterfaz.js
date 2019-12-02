@@ -1,6 +1,5 @@
 var pantallaInferior = document.getElementById('pantallaInferior');
 var pantallaSuperior = document.getElementById('pantallaSuperior');
-
 /* eventos al hacer click en los botones */
 function comprobarBotones(valorPulsado) {
   if (valorPulsado.className === 'boton_operacion') {
@@ -17,7 +16,7 @@ function comprobarTecla(evento) {
     botonOperar();
   } else if (/^(\+|-|\*|\/)$/.test(evento)) {
     escribirOperacion(evento);
-  } else if (/^(\d|\.)$/.test(evento)) {
+  } else if (/^(\d|\.|X|Y)$/.test(evento)) {
     escribirOperando(evento);
   }
 }
@@ -80,14 +79,4 @@ function formatearCadena(cadena) {
   cadena = cadena.replace(/PI/g, Math.PI);
   cadena = cadena.replace(/E(?!N)/g, Math.E);
   return cadena.replace(/,/g, '.');
-}
-
-function comprobarModoCalculo() {
-  inputIntroducido = formatearCadena(pantallaSuperior.innerHTML);
-  if (/^X=|^Y=/.test(inputIntroducido)) {
-    calcularFuncion();
-  } else if (document.getElementById('lienzo').style.visibility === 'visible') {
-    pantallaInferior.innerHTML = 'Funcion no valida';
-    pantallaSuperior.innerHTML = '';
-  } 
 }

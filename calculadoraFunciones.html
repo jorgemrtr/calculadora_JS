@@ -10,37 +10,38 @@
       margin-left: 10%;
       width: 45%;
     }
-
-    #cambiarModo {
-      background-color: #dfe1e5;
-      outline: white solid 1px;
-      width: 90%;
-      margin: 0 5%;
-      padding: 2.5% 0;
-      float: left;
-    }
-
-    #cambiarModo:hover {
-      background-color: #d7d9dd;
-    }
-
+    
     #lienzo {
-      margin: 1.5em 0 3em;
-      float: left;
-      width: 20%;
-      height: 12.5em;
-      border: solid 1px black;
+      margin: 2.5% 0;
+      width: 300px;
+      height: 300px;
+      outline: solid 1px black;
     }
   </style>
+  
+  <script>
+    function comprobarIgual(valorPulsado) {
+      var operando = document.getElementById('pantallaInferior').innerHTML;
+      if (comprobarPantalla(pantallaSuperior.innerHTML)) {
+        pantallaSuperior.innerHTML = operando + valorPulsado;
+        pantallaInferior.innerHTML = '';
+      } else {
+        pantallaSuperior.innerHTML += operando + valorPulsado;
+        pantallaInferior.innerHTML = '';
+      }
+    }
+
+  </script>
 </head>
 
 <body onkeydown="comprobarTecla(event)">
 
   <div id="chasis_calculadora">
-    <div id="display">
-      <div id="boton_cero" class="boton_operacion" onclick="resetearPantallas()">C</div>
-      <div class="pantallas" id="pantallaSuperior" style="width: 90%;"></div>
-    </div>
+      <div id="display">
+          <div id="boton_cero" class="boton_operacion" onclick="resetearPantallas()" style="width: 10%;">C</div>
+          <div class="pantallas" id="pantallaSuperior" style="width: 90%;"></div>
+          <div class="pantallas" id="pantallaInferior"></div>
+        </div>
     <div id="cambiarModo" onclick="window.location.replace('calculadoraCientifica.html')">Modo Cientifico</div>
 
     <div class="panel" id="panel_botones_lateral">
@@ -79,23 +80,27 @@
       <br>
       <div class="boton_numero" onclick="comprobarBotones(this)">0</div>
       <div class="boton_numero" onclick="comprobarBotones(this)">,</div>
-      <div class="boton_calcular" onclick="comprobarBotones(this)">=</div>
+      <div class="boton_calcular" onclick="comprobarIgual(this.innerHTML)">=</div>
       <br>
       <div class="boton_operacion" onclick="cambiarSigno()">+ / -</div>
       <div class="boton_operacion" onclick="comprobarBotones(this)">abs</div>
       <div class="boton_operacion" onclick="comprobarBotones(this)">^</div>
       <div class="boton_operacion" onclick="comprobarBotones(this)">/</div>
       <br>
+      <div class="boton_numero" onclick="comprobarBotones(this)" style="width: 50%;">X</div>
+      <div class="boton_numero" onclick="comprobarBotones(this)" style="width: 50%;">Y</div>
+      <br>
     </div>
   </div>
 
-
-
-  <canvas id="lienzo"></canvas>
+  <div style="float: left; margin-top: 2.5%; text-align: center">
+      <canvas id="lienzo"></canvas>
+      <div onclick="calcularFuncion()">Dibujar Funcion</div>
+      <div>(las funciones deben empezar por 'X=' o 'Y=')</div>
+  </div">
+  <script src="pintarCanvas.js"></script>
   <script src="procesarCalculo.js"></script>
   <script src="controlInterfaz.js"></script>
-  <script src="pintarCanvas.js"></script>
-
 </body>
 
 </html>

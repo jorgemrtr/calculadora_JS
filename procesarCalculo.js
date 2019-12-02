@@ -23,7 +23,7 @@ function calculadora(operacionIntroducida) {
 
 //analiza la estructura siguiendo el orden: operando1 > operacion > operando2
 function analizarInput() {
-    unOperador = false; 
+    unOperador = false;
     if (resultado !== null) {
         operando1 = resultado;
     } else {
@@ -111,10 +111,70 @@ function operar(operando1, operando2, operacion) {
     return resultado;
 }
 
-
+var valorX, valorY;
 function calcularFuncion() {
-    inputIntroducido = formatearCadena(pantallaSuperior.innerHTML);
-    if (inputIntroducido.match()) {
-
+    error = false;
+    valorX = 0;
+    valorY = 0;
+    inputIntroducido = formatearCadena(pantallaSuperior.innerHTML + pantallaInferior.innerHTML);
+    //transformar los valores de X e Y
+    if (/^X=/.test(inputIntroducido)) {
+        inputIntroducido = inputIntroducido.substring(2, inputIntroducido.length);
+        if (!/X/.test(inputIntroducido) && /Y/.test(inputIntroducido)) {
+            recorrerFuncionX();
+        } else {
+            error = true;
+        }
+    } else if (/^Y=/.test(inputIntroducido)) {
+        inputIntroducido = inputIntroducido.substring(2, inputIntroducido.length);
+        if (!/Y/.test(inputIntroducido) && /X/.test(inputIntroducido)) {
+            recorrerFuncionY();
+        } else {
+            error = true;
+        }
+    } else {
+        error = true;
     }
+}
+
+function recorrerFuncionX() {
+    //cambiar a 20
+    for (var i = -5; i < 5; i++) {
+        valorY = i;
+        inputOriginal = inputIntroducido;
+        inputIntroducido = inputIntroducido.replace(/Y/, i);
+        while (inputIntroducido.length > 0 && !error) {
+            analizarInput();
+            if (!error) {
+                resultado = operar(parseFloat(operando1), parseFloat(operando2), operacion);
+            } else {
+                resultado = 'No valido';
+            }
+        }
+        valorX = resultado;
+        pintarValores(valorX, valorY);
+        resultado = null;
+        inputIntroducido = inputOriginal;
+    }
+
+}
+function recorrerFuncionY() {
+    for (var i = -20; i < 20; i++) {
+        valorX = i;
+        inputOriginal = inputIntroducido;
+        inputIntroducido = inputIntroducido.replace(/X/, i);
+        while (inputIntroducido.length > 0 && !error) {
+            analizarInput();
+            if (!error) {
+                resultado = operar(parseFloat(operando1), parseFloat(operando2), operacion);
+            } else {
+                resultado = 'No valido';
+            }
+        }
+        valorY = resultado;
+        pintarValores(valorX, valorY);
+        resultado = null;
+        inputIntroducido = inputOriginal;
+    }
+
 }
