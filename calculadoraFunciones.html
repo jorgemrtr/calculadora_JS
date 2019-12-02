@@ -13,8 +13,8 @@
     
     #lienzo {
       margin: 2.5% 0;
-      width: 300px;
-      height: 300px;
+      width: 500px;
+      height: 500px;
       outline: solid 1px black;
     }
   </style>
@@ -30,7 +30,6 @@
         pantallaInferior.innerHTML = '';
       }
     }
-
   </script>
 </head>
 
@@ -38,8 +37,8 @@
 
   <div id="chasis_calculadora">
       <div id="display">
-          <div id="boton_cero" class="boton_operacion" onclick="resetearPantallas()" style="width: 10%;">C</div>
-          <div class="pantallas" id="pantallaSuperior" style="width: 90%;"></div>
+          <div id="boton_cero" class="boton_operacion" onclick="resetearPantallaFunciones()" style="width: 10%;">C</div>
+          <div class="pantallas" id="pantallaSuperior" style="width: 90%;">Y=</div>
           <div class="pantallas" id="pantallaInferior"></div>
         </div>
     <div id="cambiarModo" onclick="window.location.replace('calculadoraCientifica.html')">Modo Cientifico</div>
@@ -87,17 +86,17 @@
       <div class="boton_operacion" onclick="comprobarBotones(this)">^</div>
       <div class="boton_operacion" onclick="comprobarBotones(this)">/</div>
       <br>
+      <div class="boton_numero" onclick="calcularFuncion()" style="width: 50%;">Dibujar</div>
       <div class="boton_numero" onclick="comprobarBotones(this)" style="width: 50%;">X</div>
-      <div class="boton_numero" onclick="comprobarBotones(this)" style="width: 50%;">Y</div>
       <br>
     </div>
   </div>
 
   <div style="float: left; margin-top: 2.5%; text-align: center">
-      <canvas id="lienzo"></canvas>
+    <canvas id="lienzo" width="500" height="500"></canvas>
       <div onclick="calcularFuncion()">Dibujar Funcion</div>
       <div>(las funciones deben empezar por 'X=' o 'Y=')</div>
-  </div">
+  </div>
   <script src="pintarCanvas.js"></script>
   <script src="procesarCalculo.js"></script>
   <script src="controlInterfaz.js"></script>

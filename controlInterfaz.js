@@ -51,9 +51,15 @@ function comprobarPantalla(datos) {
     datos === 'Infinity' || datos === 'Funcion no valida';
 }
 
-/* se borran los valores de ambas pantallas */
-function resetearPantallas() {
+/* se borran los valores de ambas pantallas en la calculadora cientifica*/
+function resetearPantallaCientifica() {
   pantallaSuperior.innerHTML = '';
+  pantallaInferior.innerHTML = '';
+}
+
+/* se borran los valores de ambas pantallas en la calculadora cientifica*/
+function resetearPantallaFunciones() {
+  pantallaSuperior.innerHTML = 'Y=';
   pantallaInferior.innerHTML = '';
 }
 

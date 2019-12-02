@@ -113,6 +113,7 @@ function operar(operando1, operando2, operacion) {
 
 var valorX, valorY;
 function calcularFuncion() {
+    limpiar();
     error = false;
     valorX = 0;
     valorY = 0;
@@ -126,6 +127,7 @@ function calcularFuncion() {
             error = true;
         }
     } else if (/^Y=/.test(inputIntroducido)) {
+        console.log('entra');
         inputIntroducido = inputIntroducido.substring(2, inputIntroducido.length);
         if (!/Y/.test(inputIntroducido) && /X/.test(inputIntroducido)) {
             recorrerFuncionY();
@@ -139,10 +141,10 @@ function calcularFuncion() {
 
 function recorrerFuncionX() {
     //cambiar a 20
-    for (var i = -5; i < 5; i++) {
+    for (var i = (totalX/2) * -1; i < totalX/2; i++) {
         valorY = i;
         inputOriginal = inputIntroducido;
-        inputIntroducido = inputIntroducido.replace(/Y/, i);
+        inputIntroducido = inputIntroducido.replace(/Y/g, i);
         while (inputIntroducido.length > 0 && !error) {
             analizarInput();
             if (!error) {
@@ -159,10 +161,10 @@ function recorrerFuncionX() {
 
 }
 function recorrerFuncionY() {
-    for (var i = -20; i < 20; i++) {
+    for (var i = (totalY/2) * -1; i < totalY/2; i++) {
         valorX = i;
         inputOriginal = inputIntroducido;
-        inputIntroducido = inputIntroducido.replace(/X/, i);
+        inputIntroducido = inputIntroducido.replace(/X/g, i);
         while (inputIntroducido.length > 0 && !error) {
             analizarInput();
             if (!error) {
