@@ -1,5 +1,6 @@
 var pantallaInferior = document.getElementById('pantallaInferior');
 var pantallaSuperior = document.getElementById('pantallaSuperior');
+
 /* eventos al hacer click en los botones */
 function comprobarBotones(valorPulsado) {
   if (valorPulsado.className === 'boton_operacion') {
@@ -47,8 +48,8 @@ function escribirOperacion(input) {
 
 /* se filta el resultado para saber de que forma escribir */
 function comprobarPantalla(datos) {
-  return datos === 'No valido' || datos === 'NaN' || datos === '' ||
-    datos === 'Infinity' || datos === 'Funcion no valida';
+  return datos === 'No valido' || datos == 'Nan' || datos === '' ||
+    datos === 'Infinity' || datos === 'infinito' || datos === 'Funcion no valida';
 }
 
 /* se borran los valores de ambas pantallas en la calculadora cientifica*/
@@ -66,7 +67,13 @@ function resetearPantallaFunciones() {
 /* se cambia el signo multiplicando por -1 el numero introducido */
 function cambiarSigno() {
   numeroActual = formatearCadena(pantallaInferior.innerHTML);
-  pantallaInferior.innerHTML = parseFloat(numeroActual) * -1;
+  if (numeroActual === 'X') {
+      pantallaInferior.innerHTML = '-X';
+  } else if (numeroActual === '-X') {
+      pantallaInferior.innerHTML = 'X';
+  } else {
+      pantallaInferior.innerHTML = parseFloat(numeroActual) * -1;
+  }
 }
 
 /* une y opera la cadena con lo introducido y muestra el resultado en la pantalla inferior */

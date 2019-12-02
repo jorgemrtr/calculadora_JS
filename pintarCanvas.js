@@ -6,13 +6,12 @@ var canvas, lienzo, totalX, totalY;
 var primerDato = true;
 pintarBase();
 
+// se pinta el eje completo en el canvas siendo el punto 0,0 mitad de la anchura y altura
 function pintarBase() {
     canvas = document.getElementById('lienzo');
     lienzo = canvas.getContext('2d');
     totalX = canvas.width;
     totalY = canvas.height;
-    console.log(totalX);
-    console.log(totalY);
     lienzo.beginPath();
     pintarEjes();
     pintarRayas();
@@ -45,31 +44,28 @@ function pintarRayas() {
         lienzo.lineTo(((totalX / 2) + tamanoRaya), indiceNegativo);
     }
 }
+
+//borra el cambas y vuelve a dibujar los ejes
 function limpiar() {
     lienzo.clearRect(0, 0, totalX, totalY);
     pintarBase();
 }
 
+/*Se dibuja los dos valores que recibe cambiandolos para que se correspondan con
+los ejes X e Y del canvas*/
 var datoXAntiguo = null;
 var datoYAntiguo = null;
 function pintarValores(datoX, datoY) {
-    //hacer la conversion de los datos, el punto 0,0 corresponde con la mitad de la anchura y altura
     datoX = datoX + (totalX/2);
     datoY = (datoY * -1) + (totalY/2);
-    console.log('datos canvas');
-    console.log(datoX);
-    console.log(datoY);
     lienzo.beginPath();
     lienzo.strokeStyle = colorPuntos;
-    if (datoXAntiguo !== null, datoYAntiguo !== null) {
+    if (datoXAntiguo !== null && datoYAntiguo !== null) {
         lienzo.moveTo(datoXAntiguo, datoYAntiguo);
     } else {
-        lienzo.moveTo(datoX, datoY-1);
+        lienzo.moveTo(datoX, datoY);
     }
-    //linea eje X
-    //lienzo.moveTo(datoX, datoY);
     lienzo.lineTo(datoX, datoY);
-    //ienzo.fillRect(datoX, datoY, 1, 1);
     datoXAntiguo = datoX;
     datoYAntiguo = datoY;
     

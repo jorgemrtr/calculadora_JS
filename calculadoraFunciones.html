@@ -79,23 +79,20 @@
       <br>
       <div class="boton_numero" onclick="comprobarBotones(this)">0</div>
       <div class="boton_numero" onclick="comprobarBotones(this)">,</div>
-      <div class="boton_calcular" onclick="comprobarIgual(this.innerHTML)">=</div>
+      <div class="boton_calcular" onclick="calcularFuncion()">Dibujar</div>
       <br>
       <div class="boton_operacion" onclick="cambiarSigno()">+ / -</div>
       <div class="boton_operacion" onclick="comprobarBotones(this)">abs</div>
       <div class="boton_operacion" onclick="comprobarBotones(this)">^</div>
       <div class="boton_operacion" onclick="comprobarBotones(this)">/</div>
       <br>
-      <div class="boton_numero" onclick="calcularFuncion()" style="width: 50%;">Dibujar</div>
-      <div class="boton_numero" onclick="comprobarBotones(this)" style="width: 50%;">X</div>
+      <div class="boton_numero" onclick="comprobarBotones(this)" style="width: 100%;">X</div>
       <br>
     </div>
   </div>
 
   <div style="float: left; margin-top: 2.5%; text-align: center">
     <canvas id="lienzo" width="500" height="500"></canvas>
-      <div onclick="calcularFuncion()">Dibujar Funcion</div>
-      <div>(las funciones deben empezar por 'X=' o 'Y=')</div>
   </div>
   <script src="pintarCanvas.js"></script>
   <script src="procesarCalculo.js"></script>

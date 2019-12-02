@@ -45,7 +45,7 @@ function analizarInput() {
 
 
 /* comprueba que la primera parte del input sea un operando, si es correcto lo guarda y elimina 
-del input, si no da error*/
+ del input, si no da error*/
 function analizarOperando() {
     var operando = inputIntroducido.match(regExOperando);
     if (operando === null) {
@@ -57,7 +57,7 @@ function analizarOperando() {
 }
 
 /* comprueba que la primera parte del input sea una operacion, si es correcto lo guarda y elimina 
-del input, si no da error. Tambien controla si la operacion es de uno o varios operandos */
+ del input, si no da error. Tambien controla si la operacion es de uno o varios operandos */
 function analizarOperacion() {
     var operacion = inputIntroducido.match(regExOperaciones);
     if (operacion === null) {
@@ -82,11 +82,14 @@ function operar(operando1, operando2, operacion) {
     } else if (operacion === '*') {
         resultado = operando1 * operando2;
     } else if (operacion === '/') {
+        if (operando2 === '0') {
+            return 'infinito';
+        }
         resultado = operando1 / operando2;
     } else if (operacion === '^') {
         resultado = operando1 ** operando2;
     } else if (operacion === 'RAIZ') {
-        resultado = Math.pow(operando2, operando1);
+        resultado = Math.pow(operando1, 1 / operando2);
     } else if (operacion === 'ABS') {
         resultado = Math.abs(operando1);
     } else if (operacion === 'SEN') {
@@ -115,68 +118,48 @@ var valorX, valorY;
 function calcularFuncion() {
     limpiar();
     error = false;
-    valorX = 0;
-    valorY = 0;
     inputIntroducido = formatearCadena(pantallaSuperior.innerHTML + pantallaInferior.innerHTML);
-    //transformar los valores de X e Y
-    if (/^X=/.test(inputIntroducido)) {
-        inputIntroducido = inputIntroducido.substring(2, inputIntroducido.length);
-        if (!/X/.test(inputIntroducido) && /Y/.test(inputIntroducido)) {
-            recorrerFuncionX();
-        } else {
-            error = true;
-        }
-    } else if (/^Y=/.test(inputIntroducido)) {
+    if (/^Y=/.test(inputIntroducido)) {
         console.log('entra');
         inputIntroducido = inputIntroducido.substring(2, inputIntroducido.length);
-        if (!/Y/.test(inputIntroducido) && /X/.test(inputIntroducido)) {
-            recorrerFuncionY();
-        } else {
-            error = true;
-        }
+        recorrerFuncion();
     } else {
         error = true;
     }
 }
 
-function recorrerFuncionX() {
-    //cambiar a 20
-    for (var i = (totalX/2) * -1; i < totalX/2; i++) {
-        valorY = i;
+function recorrerFuncion() {
+    for (var i = (totalX / 2) * -1; i < totalX / 2; i++) {
         inputOriginal = inputIntroducido;
-        inputIntroducido = inputIntroducido.replace(/Y/g, i);
-        while (inputIntroducido.length > 0 && !error) {
-            analizarInput();
-            if (!error) {
-                resultado = operar(parseFloat(operando1), parseFloat(operando2), operacion);
-            } else {
-                resultado = 'No valido';
-            }
-        }
-        valorX = resultado;
-        pintarValores(valorX, valorY);
-        resultado = null;
-        inputIntroducido = inputOriginal;
-    }
-
-}
-function recorrerFuncionY() {
-    for (var i = (totalY/2) * -1; i < totalY/2; i++) {
         valorX = i;
-        inputOriginal = inputIntroducido;
-        inputIntroducido = inputIntroducido.replace(/X/g, i);
-        while (inputIntroducido.length > 0 && !error) {
-            analizarInput();
-            if (!error) {
-                resultado = operar(parseFloat(operando1), parseFloat(operando2), operacion);
-            } else {
-                resultado = 'No valido';
+        if (inputIntroducido === 'X') {
+            resultado = i;
+        } else if (inputIntroducido === '-X') {
+            resultado = i * -1;
+        } else if (regExOperando.test(inputIntroducido)) {
+            resultado = parseFloat(inputIntroducido);
+        } else {
+            //comprobar TAMBIEN si no hay X como la de arriba
+            if (!/X/.test(inputIntroducido)) {
+                
+            } else if (/--X/.test(inputIntroducido)) {
+                inputIntroducido = inputIntroducido.replace(/-X/g, (i * -1));
+            } else if (/X/.test(inputIntroducido)) {
+                inputIntroducido = inputIntroducido.replace(/X/g, i);
+            }
+
+            while (inputIntroducido.length > 0 && !error) {
+                analizarInput();
+                if (!error) {
+                    resultado = operar(parseFloat(operando1), parseFloat(operando2), operacion);
+                }
             }
         }
-        valorY = resultado;
-        pintarValores(valorX, valorY);
+        if (!error) {
+            valorY = resultado;
+            pintarValores(valorX, valorY);
+        }
         resultado = null;
         inputIntroducido = inputOriginal;
     }
-
 }
