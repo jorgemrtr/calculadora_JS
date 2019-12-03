@@ -28,10 +28,12 @@
   <div id="chasis_calculadora">
     <select id="tema" onchange="cambiarTema(this.options[tema.selectedIndex].value)">
       <option>Clasico</option>
-      <option>Azul</option>
       <option>Rojo</option>
-      <option>Verde</option>
+      <option>Naranja</option>
       <option>Magenta</option>
+      <option>Azul</option>
+      <option>Cyan</option>
+      <option>Verde</option>
     </select>
     <div id="display">
       <div id="boton_cero" class="boton_operacion" onclick="resetearPantallaFunciones()">C</div>
@@ -82,7 +84,8 @@
   </div>
 
   <div style="float: left; margin-top: 2.5%; text-align: center">
-    <canvas id="lienzo" width="500" height="500"></canvas>
+    <canvas id="lienzo" width="500" height="500"></canvas><br>
+    <input type="range" min="0" max="100" value="50" style="width: 100%">
   </div>
   <script src="pintarCanvas.js"></script>
   <script src="procesarCalculo.js"></script>

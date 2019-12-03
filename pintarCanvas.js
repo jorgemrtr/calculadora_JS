@@ -2,8 +2,8 @@ var colorEje = 'black';
 var colorPuntos = '#4285f4';
 var colorPuntos = document.getElementById('boton_calcular').style.backgroundColor;
 console.log(document.getElementById('boton_calcular').style);
-var tamanoRaya = 4;
-var separacionRaya = 20;
+var tamanoRaya = 5;
+var separacionRaya = 10;
 var canvas, lienzo, totalX, totalY;
 var primerDato = true;
 pintarBase();
@@ -55,8 +55,8 @@ function limpiar() {
 
 /*Se dibuja los dos valores que recibe cambiandolos para que se correspondan con
 los ejes X e Y del canvas*/
-var datoXAntiguo = null;
-var datoYAntiguo = null;
+var datoXAntiguo;
+var datoYAntiguo;
 function pintarValores(datoX, datoY) {
     datoX = datoX + (totalX/2);
     datoY = (datoY * -1) + (totalY/2);

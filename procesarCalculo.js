@@ -136,7 +136,7 @@ function recorrerFuncion() {
             resultado = i;
         } else if (inputIntroducido === '-X') {
             resultado = i * -1;
-        } else if (regExOperando.test(inputIntroducido)) {
+        } else if (/^([-+]?[0-9]+\.?[0-9]+|[-+]?[0-9])$/.test(inputIntroducido)) {
             resultado = parseFloat(inputIntroducido);
         } else {
             if (/--X/.test(inputIntroducido)) {

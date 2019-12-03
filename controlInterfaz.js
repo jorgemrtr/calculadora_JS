@@ -94,31 +94,37 @@ function cambiarTema(tema) {
       colorOperaciones = '#dfe1e5';
       colorNumeros = '#f1f3f4';
     } else if (tema == 'Azul' ) {
-      colorPrincipal = '#4285f4';
-      colorOperaciones = '#98c0ff';
-      colorNumeros = '#cedeff';
+      colorPrincipal = '#005aff';
+      colorOperaciones = '#94acff';
+      colorNumeros = '#cedcff';
     } else if (tema == 'Rojo') {
-      colorPrincipal = '#f55d00';
-      colorOperaciones = '#ff9752';
-      colorNumeros = '#ffcaa6';
+      colorPrincipal = '#ff001c';
+      colorOperaciones = '#ff7c87';
+      colorNumeros = '#ffbec3';
+    } else if (tema == 'Naranja') {
+      colorPrincipal = '#ff9700';
+      colorOperaciones = '#ffc69e';
+      colorNumeros = '#ffe5dc';
+    }  else if (tema == 'Cyan') {
+      colorPrincipal = 'rgba(0,248,255,0.96)';
+      colorOperaciones = '#a8f7f9';
+      colorNumeros = '#dfffff';
     } else if (tema == 'Verde') {
-      colorPrincipal = '#00ee76';
-      colorOperaciones = '#85ffbd';
-      colorNumeros = '#caffe1';
-    } else if (tema == 'Verde') {
-      colorPrincipal = '#ee0086';
+      colorPrincipal = '#00ff80';
+      colorOperaciones = '#a3ffcf';
+      colorNumeros = '#d8ffe6';
+    } else if (tema == 'Magenta') {
+      colorPrincipal = '#ff0090';
       colorOperaciones = '#ff7dc8';
       colorNumeros = '#ffceed';
     }
     colorPuntos = colorPrincipal;
     document.getElementById('boton_calcular').style.backgroundColor = colorPrincipal;
     document.getElementById('display').style.outlineColor = colorOperaciones;
-    var divOperaciones = document.getElementsByClassName('boton_operacion');
-    for (divOperacion of divOperaciones) {
+    for (divOperacion of document.getElementsByClassName('boton_operacion')) {
       divOperacion.style.backgroundColor = colorOperaciones;
     }
-    var divNumeros = document.getElementsByClassName('boton_numero');
-    for (divNumero of divNumeros) {
+    for (divNumero of divNumeros = document.getElementsByClassName('boton_numero')) {
       divNumero.style.backgroundColor = colorNumeros;
     }
   }
