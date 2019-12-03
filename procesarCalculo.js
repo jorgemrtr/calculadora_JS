@@ -1,6 +1,6 @@
 var regExOperando = /^[-+]?[0-9]+\.?[0-9]+|^[-+]?[0-9]/;
-var regExUnOperando = /^(ABS|SEN|COS|TAN|LOG10|LOG2|LN|SQRT){1}/;
-var regExOperaciones = /^-|\+|\*|\/|\^|ABS|SEN|COS|TAN|LOG10|LOG2|LN|SQRT|RAIZ{1}/;
+var regExUnOperando = /^(ABS|SEN|COS|TAN|LOG10|LOG2|LN|SQRT){1}/i;
+var regExOperaciones = /^-|\+|\*|\/|\^|ABS|SEN|COS|TAN|LOG10|LOG2|LN|SQRT|RAIZ{1}/i;
 var inputIntroducido, unOperador, error, operando1, operando2, operacion;
 var resultado = null;
 
@@ -82,7 +82,7 @@ function operar(operando1, operando2, operacion) {
     } else if (operacion === '*') {
         resultado = operando1 * operando2;
     } else if (operacion === '/') {
-        if (operando2 === '0') {
+        if (operando2 == '0') {
             return 'infinito';
         }
         resultado = operando1 / operando2;
@@ -139,13 +139,11 @@ function recorrerFuncion() {
         } else if (regExOperando.test(inputIntroducido)) {
             resultado = parseFloat(inputIntroducido);
         } else {
-            //comprobar TAMBIEN si no hay X como la de arriba
             if (/--X/.test(inputIntroducido)) {
                 inputIntroducido = inputIntroducido.replace(/-X/g, (i * -1));
             } else if (/X/.test(inputIntroducido)) {
                 inputIntroducido = inputIntroducido.replace(/X/g, i);
             }
-
             while (inputIntroducido.length > 0 && !error) {
                 analizarInput();
                 if (!error) {

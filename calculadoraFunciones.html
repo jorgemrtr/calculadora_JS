@@ -10,78 +10,77 @@
       margin-left: 10%;
       width: 45%;
     }
-    
+
     #lienzo {
       margin: 2.5% 0;
-      width: 500px;
-      height: 500px;
-      outline: solid 1px black;
+      outline: solid 1px #d7d9dd;
     }
   </style>
-
+  <script>
+    function cambiarModo() {
+      window.location.replace('calculadoraCientifica.html');
+    }
+  </script>
 </head>
 
 <body onkeydown="comprobarInput(event.key)">
 
   <div id="chasis_calculadora">
-      <select id="tema">
-          <option name="claro_azul">Claro Azul</option>
-          <option name="claro_rojo">Claro Rojo</option>
-          <option name="oscuro">Oscuro</option>
-        </select>
-      <div id="display">
-          <div id="boton_cero" class="boton_operacion" onclick="resetearPantallaFunciones()" style="width: 10%;">C</div>
-          <div class="pantallas" id="pantallaSuperior" style="width: 90%;">Y=</div>
-          <div class="pantallas" id="pantallaInferior"></div>
-        </div>
-    <div id="cambiarModo" onclick="window.location.replace('calculadoraCientifica.html')">Modo Cientifico</div>
+    <select id="tema" onchange="cambiarTema(this.options[tema.selectedIndex].value)">
+      <option>Claro Azul</option>
+      <option>Claro Rojo</option>
+      <option>Oscuro</option>
+    </select>
+    <div id=" display">
+      <div id="boton_cero" class="boton_operacion" onclick="resetearPantallaFunciones()">C</div>
+      <div id="pantallaSuperior" style="width: 90%;">Y=</div>
+      <div id="pantallaInferior"></div>
+  </div>
 
-    <div class="panel" id="panel_botones_lateral">
-      <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">E</div>
-      <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">PI</div>
-      <br>
-      <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">sen</div>
-      <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">cos</div>
-      <br>
-      <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">tan</div>
-      <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">log10</div>
-      <br>
-      <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">log2</div>
-      <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">ln</div>
-      <br>
-      <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">sqrt</div>
-      <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">raiz</div>
-      <br>
-    </div>
 
-    <div class="panel" id="panel_botones">
-      <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">7</div>
-      <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">8</div>
-      <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">9</div>
-      <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">+</div>
-      <br>
-      <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">4</div>
-      <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">5</div>
-      <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">6</div>
-      <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">-</div>
-      <br>
-      <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">1</div>
-      <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">2</div>
-      <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">3</div>
-      <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">*</div>
-      <br>
-      <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">0</div>
-      <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">,</div>
-      <div class="boton_calcular" onclick="calcularFuncion()">Dibujar</div>
-      <br>
-      <div class="boton_operacion" onclick="cambiarSigno()">+ / -</div>
-      <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">abs</div>
-      <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">^</div>
-      <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">/</div>
-      <br>
-      <div class="boton_numero" onclick="comprobarInput(this.innerHTML)" style="width: 100%;">X</div>
-      <br>
-    </div>
+  <div class="panel">
+    <div class="boton_operacion" onclick="cambiarModo()" style="width: 90%;">Modo Cientifico</div>
+    <br>
+    <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">E</div>
+    <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">PI</div>
+    <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">7</div>
+    <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">8</div>
+    <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">9</div>
+    <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">+</div>
+
+
+    <br>
+    <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">sen</div>
+    <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">cos</div>
+    <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">4</div>
+    <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">5</div>
+    <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">6</div>
+    <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">-</div>
+
+
+    <br>
+    <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">tan</div>
+    <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">log10</div>
+    <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">1</div>
+    <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">2</div>
+    <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">3</div>
+    <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">*</div>
+    <br>
+    <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">log2</div>
+    <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">ln</div>
+    <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">0</div>
+    <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">,</div>
+    <div class="boton_calcular" onclick="calcularFuncion()" style="width: 30%;">Dibujar</div>
+    <br>
+    <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">sqrt</div>
+    <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">raiz</div>
+    <div class="boton_operacion" onclick="cambiarSigno()">+ / -</div>
+    <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">abs</div>
+    <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">^</div>
+    <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">/</div>
+    <br>
+    <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">X</div>
+  </div>
   </div>
 
   <div style="float: left; margin-top: 2.5%; text-align: center">

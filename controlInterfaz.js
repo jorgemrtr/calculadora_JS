@@ -6,7 +6,7 @@ su valor */
 function comprobarInput(input) {
   if (regExOperaciones.test(input)) {
     escribirOperacion(input);
-  } else if (/^(\d|\.|X)$/.test(input)) {
+  } else if (/^(\d|\.|PI|E|X)$/.test(input)) {
     escribirOperando(input);
   } else if (input == 'Enter') {
     botonOperar();
@@ -58,11 +58,11 @@ function resetearPantallaFunciones() {
 function cambiarSigno() {
   numeroActual = formatearCadena(pantallaInferior.innerHTML);
   if (numeroActual === 'X') {
-      pantallaInferior.innerHTML = '-X';
+    pantallaInferior.innerHTML = '-X';
   } else if (numeroActual === '-X') {
-      pantallaInferior.innerHTML = 'X';
+    pantallaInferior.innerHTML = 'X';
   } else {
-      pantallaInferior.innerHTML = parseFloat(numeroActual) * -1;
+    pantallaInferior.innerHTML = parseFloat(numeroActual) * -1;
   }
 }
 
@@ -72,8 +72,8 @@ function botonOperar() {
   operacionIntroducida = formatearCadena(operacionIntroducida);
   var resultado = calculadora(operacionIntroducida);
   resultado = resultado.toString().replace(/,/g, '.')
-    pantallaInferior.innerHTML = resultado;
-    pantallaSuperior.innerHTML = '';
+  pantallaInferior.innerHTML = resultado;
+  pantallaSuperior.innerHTML = '';
 }
 
 /* formateo para poder operar la cadena */
@@ -82,4 +82,19 @@ function formatearCadena(cadena) {
   cadena = cadena.replace(/PI/g, Math.PI);
   cadena = cadena.replace(/E(?!N)/g, Math.E);
   return cadena.replace(/,/g, '.');
+}
+
+var temaActual = 'Claro Azul';
+function cambiarTema(tema) {
+  console.log(tema);
+  if (tema != temaActual) {
+    if (tema == 'Claro Azul' ) {
+
+    } else if (tema == 'Claro Rojo') {
+
+    } else if (tema == 'Oscuro') {
+
+    }
+    temaActual = tema;
+  }
 }

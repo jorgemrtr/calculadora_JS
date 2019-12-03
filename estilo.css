@@ -4,6 +4,10 @@ body {
     user-select: none;   
 }
 
+select {
+    font-size: 1em;
+}
+
 #chasis_calculadora {
     height: 30em;
     text-align: center;
@@ -14,13 +18,10 @@ body {
     overflow: auto;
     margin: 5%; 
     outline: solid 1px #d7d9dd;
-}
-
-.pantallas {
     text-align: right;
 }
 
-.pantallas, #boton_cero {
+#display div{
     float: left;
     padding: 0.25em 0;
     height: 1em;
@@ -38,40 +39,20 @@ body {
     float: left;
   }
 
-/* UNIFICAR LOS DOS PANELES CAMBIANDO EL ANCHO DE LOS BOTONES EN FUNCION DE LOS PANELES ANTERIORES */
 .panel {
     float: left;
     height: 50%;
-    /* margin: 0% 5%; */
+    margin: 0% 5%;
+    width: 100%;
 }
 
 .panel div {
     float: left;
     padding: 1em 0;
+    width: 15%;
     height: 1em;
     outline: white solid 1px;
 }
-/*ELIMINAR vvvvvvvvvvvvvvvvvv*/
-#panel_botones {
-    margin: 0% 5% 0% 0%;
-    width: 55%;
-}
-
-#panel_botones_lateral {
-    margin: 0% 0% 0% 5%;
-    width: 35%;
-}
-/* EIMINAR ^^^^^^^^^^^^^^^^^^*/
-
-/*vvvv  PASAR LA ANCHURA DE ESTOS DIVS TODO DESDE .PANEL  vvvv*/
-/*los botones tendran una clase dependiendo de la posicion los numeros seran de distinto color*/
-#panel_botones_lateral div {
-    width: 50%;
-}
-#panel_botones div {
-    width: 25%;
-}
-/* POS ESO LO DE ARRIBA */
 
 .boton_numero {
     background-color: #f1f3f4;
@@ -79,17 +60,21 @@ body {
 .boton_numero:hover {
     background-color: #e8eaeb;
 }
-.boton_operacion, .boton_funcion {
+.boton_operacion {
     background-color: #dfe1e5;
 }
-.boton_operacion:hover, .boton_funcion:hover, #cambiarModo:hover {
+.boton_operacion:hover {
     background-color: #d7d9dd;
 }
-#panel_botones .boton_calcular {
+.boton_calcular {
     background-color: #4285f4;
     color: white;
-    width: 50%;
 }
-#panel_botones .boton_calcular:hover {
+.boton_calcular:hover {
     background-color: #5194ff;
+}
+
+div#boton_cero {
+    width: 10%;
+    text-align: center;
 }
