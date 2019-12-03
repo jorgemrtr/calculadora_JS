@@ -140,9 +140,7 @@ function recorrerFuncion() {
             resultado = parseFloat(inputIntroducido);
         } else {
             //comprobar TAMBIEN si no hay X como la de arriba
-            if (!/X/.test(inputIntroducido)) {
-                
-            } else if (/--X/.test(inputIntroducido)) {
+            if (/--X/.test(inputIntroducido)) {
                 inputIntroducido = inputIntroducido.replace(/-X/g, (i * -1));
             } else if (/X/.test(inputIntroducido)) {
                 inputIntroducido = inputIntroducido.replace(/X/g, i);

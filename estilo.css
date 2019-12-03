@@ -1,13 +1,7 @@
 body {
     font-family: sans-serif;
     font-size: 1.6em;
-}
-
-div {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none; 
-    user-select: none;    
+    user-select: none;   
 }
 
 #chasis_calculadora {
@@ -22,25 +16,17 @@ div {
     outline: solid 1px #d7d9dd;
 }
 
-.pantallas, #boton_cero {
-    float: left;
-    padding: 0 0.25em;
-    height: 1em;
-    width: 90%;
-    font-size: 2em;
-    overflow: hidden;
-}
-
-#pantallaInferior {
-    width: 100%;
-}
-
-#boton_cero, .pantallas{
-    padding: 0.25em 0;
-}
-
 .pantallas {
     text-align: right;
+}
+
+.pantallas, #boton_cero {
+    float: left;
+    padding: 0.25em 0;
+    height: 1em;
+    width: 100%;
+    font-size: 2em;
+    overflow: hidden;
 }
 
 #cambiarModo {
@@ -51,15 +37,21 @@ div {
     padding: 2.5% 0;
     float: left;
   }
-  #cambiarModo:hover {
-    background-color: #d7d9dd;
-  }
 
+/* UNIFICAR LOS DOS PANELES CAMBIANDO EL ANCHO DE LOS BOTONES EN FUNCION DE LOS PANELES ANTERIORES */
 .panel {
     float: left;
     height: 50%;
+    /* margin: 0% 5%; */
 }
 
+.panel div {
+    float: left;
+    padding: 1em 0;
+    height: 1em;
+    outline: white solid 1px;
+}
+/*ELIMINAR vvvvvvvvvvvvvvvvvv*/
 #panel_botones {
     margin: 0% 5% 0% 0%;
     width: 55%;
@@ -69,38 +61,35 @@ div {
     margin: 0% 0% 0% 5%;
     width: 35%;
 }
+/* EIMINAR ^^^^^^^^^^^^^^^^^^*/
 
-.panel div {
-    float: left;
-    padding: 1em 0;
-    height: 1em;
-    outline: white solid 1px;
-}
-
+/*vvvv  PASAR LA ANCHURA DE ESTOS DIVS TODO DESDE .PANEL  vvvv*/
+/*los botones tendran una clase dependiendo de la posicion los numeros seran de distinto color*/
 #panel_botones_lateral div {
     width: 50%;
 }
 #panel_botones div {
     width: 25%;
 }
+/* POS ESO LO DE ARRIBA */
 
-div.boton_numero {
+.boton_numero {
     background-color: #f1f3f4;
 }
-div.boton_numero:hover {
+.boton_numero:hover {
     background-color: #e8eaeb;
 }
-div.boton_operacion, div.boton_funcion {
+.boton_operacion, .boton_funcion {
     background-color: #dfe1e5;
 }
-div.boton_operacion:hover, div.boton_funcion:hover {
+.boton_operacion:hover, .boton_funcion:hover, #cambiarModo:hover {
     background-color: #d7d9dd;
 }
-#panel_botones div.boton_calcular {
+#panel_botones .boton_calcular {
     background-color: #4285f4;
     color: white;
     width: 50%;
 }
-#panel_botones div.boton_calcular:hover {
+#panel_botones .boton_calcular:hover {
     background-color: #5194ff;
 }

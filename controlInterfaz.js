@@ -1,28 +1,18 @@
 var pantallaInferior = document.getElementById('pantallaInferior');
 var pantallaSuperior = document.getElementById('pantallaSuperior');
 
-/* eventos al hacer click en los botones */
-function comprobarBotones(valorPulsado) {
-  if (valorPulsado.className === 'boton_operacion') {
-    escribirOperacion(valorPulsado.innerHTML);
-  } else if (valorPulsado.className === 'boton_numero') {
-    escribirOperando(valorPulsado.innerHTML);
-  }
-}
-
-/* eventos de teclado */
-function comprobarTecla(evento) {
-  evento = evento.key;
-  if (evento === 'Enter') {
+/* recibe un input desde teclado o click en un boton y gestiona que hacer dependiendo de 
+su valor */
+function comprobarInput(input) {
+  if (regExOperaciones.test(input)) {
+    escribirOperacion(input);
+  } else if (/^(\d|\.|X)$/.test(input)) {
+    escribirOperando(input);
+  } else if (input == 'Enter') {
     botonOperar();
-  } else if (/^(\+|-|\*|\/)$/.test(evento)) {
-    escribirOperacion(evento);
-  } else if (/^(\d|\.|X|Y)$/.test(evento)) {
-    escribirOperando(evento);
   }
 }
 
-/* escribe el operando recibido en la pantalla inferior */
 function escribirOperando(input) {
   if (comprobarPantalla(pantallaInferior.innerHTML)) {
     pantallaInferior.innerHTML = input;
@@ -46,19 +36,19 @@ function escribirOperacion(input) {
   }
 }
 
-/* se filta el resultado para saber de que forma escribir */
+/* filta el resultado para saber si sobrescribir lo anterior */
 function comprobarPantalla(datos) {
-  return datos === 'No valido' || datos == 'Nan' || datos === '' ||
+  return datos === 'No valido' || datos == 'NaN' || datos === '' ||
     datos === 'Infinity' || datos === 'infinito' || datos === 'Funcion no valida';
 }
 
-/* se borran los valores de ambas pantallas en la calculadora cientifica*/
+/* resetea los valores de ambas pantallas en la calculadora cientifica*/
 function resetearPantallaCientifica() {
   pantallaSuperior.innerHTML = '';
   pantallaInferior.innerHTML = '';
 }
 
-/* se borran los valores de ambas pantallas en la calculadora cientifica*/
+/* resetea los valores de ambas pantallas en la calculadora cientifica*/
 function resetearPantallaFunciones() {
   pantallaSuperior.innerHTML = 'Y=';
   pantallaInferior.innerHTML = '';
