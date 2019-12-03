@@ -84,17 +84,42 @@ function formatearCadena(cadena) {
   return cadena.replace(/,/g, '.');
 }
 
-var temaActual = 'Claro Azul';
+var temaActual;
 function cambiarTema(tema) {
-  console.log(tema);
-  if (tema != temaActual) {
-    if (tema == 'Claro Azul' ) {
-
-    } else if (tema == 'Claro Rojo') {
-
-    } else if (tema == 'Oscuro') {
-
-    }
+  if (tema !== temaActual) {
     temaActual = tema;
+    var colorPrincipal, colorNumeros, colorOperaciones, colorNumeros;
+    if (tema == 'Clasico' ) {
+      colorPrincipal = '#4285f4';
+      colorOperaciones = '#dfe1e5';
+      colorNumeros = '#f1f3f4';
+    } else if (tema == 'Azul' ) {
+      colorPrincipal = '#4285f4';
+      colorOperaciones = '#98c0ff';
+      colorNumeros = '#cedeff';
+    } else if (tema == 'Rojo') {
+      colorPrincipal = '#f55d00';
+      colorOperaciones = '#ff9752';
+      colorNumeros = '#ffcaa6';
+    } else if (tema == 'Verde') {
+      colorPrincipal = '#00ee76';
+      colorOperaciones = '#85ffbd';
+      colorNumeros = '#caffe1';
+    } else if (tema == 'Verde') {
+      colorPrincipal = '#ee0086';
+      colorOperaciones = '#ff7dc8';
+      colorNumeros = '#ffceed';
+    }
+    colorPuntos = colorPrincipal;
+    document.getElementById('boton_calcular').style.backgroundColor = colorPrincipal;
+    document.getElementById('display').style.outlineColor = colorOperaciones;
+    var divOperaciones = document.getElementsByClassName('boton_operacion');
+    for (divOperacion of divOperaciones) {
+      divOperacion.style.backgroundColor = colorOperaciones;
+    }
+    var divNumeros = document.getElementsByClassName('boton_numero');
+    for (divNumero of divNumeros) {
+      divNumero.style.backgroundColor = colorNumeros;
+    }
   }
 }

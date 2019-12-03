@@ -1,5 +1,7 @@
 var colorEje = 'black';
 var colorPuntos = '#4285f4';
+var colorPuntos = document.getElementById('boton_calcular').style.backgroundColor;
+console.log(document.getElementById('boton_calcular').style);
 var tamanoRaya = 4;
 var separacionRaya = 20;
 var canvas, lienzo, totalX, totalY;

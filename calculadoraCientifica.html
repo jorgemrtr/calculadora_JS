@@ -18,13 +18,15 @@
   </script>
 </head>
 
-<body onkeydown="comprobarInput(event.key)">
+<body onkeydown="comprobarInput(event.key)" onload="cambiarTema('Claro Azul')">
 
   <div id="chasis_calculadora">
       <select id="tema" onchange="cambiarTema(this.options[tema.selectedIndex].value)">
-          <option>Claro Azul</option>
-          <option>Claro Rojo</option>
-          <option>Oscuro</option>
+          <option>Clasico</option>
+          <option>Azul</option>
+          <option>Rojo</option>
+          <option>Verde</option>
+          <option>Magenta</option>
         </select>
     <div id="display">
       <div id="boton_cero" class="boton_operacion" onclick="resetearPantallaCientifica()">C</div>
@@ -59,7 +61,7 @@
       <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">ln</div>
       <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">0</div>
       <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">,</div>
-      <div class="boton_calcular" onclick="botonOperar()" style="width: 30%;">=</div>
+      <div id="boton_calcular" onclick="botonOperar()" style="width: 30%;">=</div>
       <br>
       <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">sqrt</div>
       <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">raiz</div>

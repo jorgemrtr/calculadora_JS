@@ -27,11 +27,13 @@
 
   <div id="chasis_calculadora">
     <select id="tema" onchange="cambiarTema(this.options[tema.selectedIndex].value)">
-      <option>Claro Azul</option>
-      <option>Claro Rojo</option>
-      <option>Oscuro</option>
+      <option>Clasico</option>
+      <option>Azul</option>
+      <option>Rojo</option>
+      <option>Verde</option>
+      <option>Magenta</option>
     </select>
-    <div id=" display">
+    <div id="display">
       <div id="boton_cero" class="boton_operacion" onclick="resetearPantallaFunciones()">C</div>
       <div id="pantallaSuperior" style="width: 90%;">Y=</div>
       <div id="pantallaInferior"></div>
@@ -47,8 +49,6 @@
     <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">8</div>
     <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">9</div>
     <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">+</div>
-
-
     <br>
     <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">sen</div>
     <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">cos</div>
@@ -56,8 +56,6 @@
     <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">5</div>
     <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">6</div>
     <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">-</div>
-
-
     <br>
     <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">tan</div>
     <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">log10</div>
@@ -70,7 +68,7 @@
     <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">ln</div>
     <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">0</div>
     <div class="boton_numero" onclick="comprobarInput(this.innerHTML)">,</div>
-    <div class="boton_calcular" onclick="calcularFuncion()" style="width: 30%;">Dibujar</div>
+    <div id="boton_calcular" onclick="calcularFuncion()" style="width: 30%;">Dibujar</div>
     <br>
     <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">sqrt</div>
     <div class="boton_operacion" onclick="comprobarInput(this.innerHTML)">raiz</div>
