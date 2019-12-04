@@ -62,7 +62,8 @@ function cambiarSigno() {
   } else if (numeroActual === '-X') {
     pantallaInferior.innerHTML = 'X';
   } else {
-    pantallaInferior.innerHTML = parseFloat(numeroActual) * -1;
+    var resultado = parseFloat(numeroActual) * -1;
+    pantallaInferior.innerHTML = resultado.toString().replace(/\./g, ',');
   }
 }
 
@@ -89,11 +90,11 @@ function cambiarTema(tema) {
   if (tema !== temaActual) {
     temaActual = tema;
     var colorPrincipal, colorNumeros, colorOperaciones, colorNumeros;
-    if (tema == 'Clasico' ) {
+    if (tema == 'Clasico') {
       colorPrincipal = '#4285f4';
       colorOperaciones = '#dfe1e5';
       colorNumeros = '#f1f3f4';
-    } else if (tema == 'Azul' ) {
+    } else if (tema == 'Azul') {
       colorPrincipal = '#005aff';
       colorOperaciones = '#94acff';
       colorNumeros = '#cedcff';
