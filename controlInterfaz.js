@@ -6,7 +6,7 @@ su valor */
 function comprobarInput(input) {
   if (regExOperaciones.test(input)) {
     escribirOperacion(input);
-  } else if (/^(\d|\.|PI|E|X)$/.test(input)) {
+  } else if (/^(\d|\,|PI|E|X)$/.test(input)) {
     escribirOperando(input);
   } else if (input == 'Enter') {
     botonOperar();
@@ -71,7 +71,7 @@ function botonOperar() {
   var operacionIntroducida = pantallaSuperior.innerHTML + pantallaInferior.innerHTML;
   operacionIntroducida = formatearCadena(operacionIntroducida);
   var resultado = calculadora(operacionIntroducida);
-  resultado = resultado.toString().replace(/,/g, '.')
+  resultado = resultado.toString().replace(/,/g, '.');
   pantallaInferior.innerHTML = resultado;
   pantallaSuperior.innerHTML = '';
 }
@@ -113,7 +113,7 @@ function cambiarTema(tema) {
       colorPrincipal = '#00ff80';
       colorOperaciones = '#a3ffcf';
       colorNumeros = '#d8ffe6';
-    } else if (tema == 'Magenta') {
+    } else if (tema == 'Rosa') {
       colorPrincipal = '#ff0090';
       colorOperaciones = '#ff7dc8';
       colorNumeros = '#ffceed';

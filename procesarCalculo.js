@@ -35,14 +35,7 @@ function analizarInput() {
     } else {
         operando2 = null;
     }
-    console.log('unOperador: ' + unOperador);
-    console.log('operando1: ' + operando1);
-    console.log('operacion: ' + operacion);
-    console.log('operando2: ' + operando2);
-    console.log('ERROR: ' + error);
-    console.log('inputRestante : ' + inputIntroducido);
 }
-
 
 /* comprueba que la primera parte del input sea un operando, si es correcto lo guarda y elimina 
  del input, si no da error*/
@@ -116,28 +109,31 @@ function operar(operando1, operando2, operacion) {
 
 var valorX, valorY;
 function calcularFuncion() {
-    limpiar();
+    esPrimerDato = true;
     error = false;
     inputIntroducido = formatearCadena(pantallaSuperior.innerHTML + pantallaInferior.innerHTML);
     if (/^Y=/.test(inputIntroducido)) {
-        console.log('entra');
         inputIntroducido = inputIntroducido.substring(2, inputIntroducido.length);
         recorrerFuncion();
     } else {
         error = true;
     }
+    
 }
 
 function recorrerFuncion() {
-    for (var i = (totalX / 2) * -1; i < totalX / 2; i++) {
+    limpiar();
+    for (var i = (totalX / 2) * -1; i <= totalX / 2; i++) {
+        valorY = null;
+        error = false;
         inputOriginal = inputIntroducido;
         valorX = i;
         if (inputIntroducido === 'X') {
-            resultado = i;
+            valorY = i;
         } else if (inputIntroducido === '-X') {
-            resultado = i * -1;
+            valorY = i * -1;
         } else if (/^([-+]?[0-9]+\.?[0-9]+|[-+]?[0-9])$/.test(inputIntroducido)) {
-            resultado = parseFloat(inputIntroducido);
+            valorY = parseFloat(inputIntroducido);
         } else {
             if (/--X/.test(inputIntroducido)) {
                 inputIntroducido = inputIntroducido.replace(/-X/g, (i * -1));
@@ -148,11 +144,11 @@ function recorrerFuncion() {
                 analizarInput();
                 if (!error) {
                     resultado = operar(parseFloat(operando1), parseFloat(operando2), operacion);
+                    valorY = resultado;
                 }
             }
         }
         if (!error) {
-            valorY = resultado;
             pintarValores(valorX, valorY);
         }
         resultado = null;
