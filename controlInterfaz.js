@@ -106,7 +106,7 @@ function cambiarTema(tema) {
       colorOperaciones = '#ffc69e';
       colorNumeros = '#ffe5dc';
     }  else if (tema == 'Cyan') {
-      colorPrincipal = 'rgba(0,248,255,0.96)';
+      colorPrincipal = '#00F9FF';
       colorOperaciones = '#a8f7f9';
       colorNumeros = '#dfffff';
     } else if (tema == 'Verde') {
@@ -133,7 +133,6 @@ function cambiarTema(tema) {
 function controlarZoom(valorZoom) {
   zoom = valorZoom;
   separacionRaya = 10 + (valorZoom / 2);
-  tamanoRaya = 3 + (valorZoom / 2);
-  console.log(tamanoRaya);
+  tamanoRaya = 4 + (valorZoom / 4);
   calcularFuncion();
 }

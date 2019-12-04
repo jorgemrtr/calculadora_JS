@@ -123,7 +123,7 @@ function calcularFuncion() {
 
 function recorrerFuncion() {
     limpiar();
-    for (var i = (totalX / 2) * -1; i <= totalX / 2; i++) {
+    for (var i = (totalX / 2) * -1; i <= totalX / 2; i += 0.5) {
         valorY = null;
         error = false;
         inputOriginal = inputIntroducido;

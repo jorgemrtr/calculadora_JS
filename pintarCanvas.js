@@ -28,7 +28,6 @@ function pintarEjes() {
     lienzo.lineTo((totalX / 2), totalY);
 }
 function pintarRayas() {
-    console.log('raya: ' + tamanoRaya);
     lienzo.strokeStyle = colorEje;
     for (var i = (totalX / 2); i < totalX; i += separacionRaya) {
         lienzo.moveTo(i, (totalY / 2));
