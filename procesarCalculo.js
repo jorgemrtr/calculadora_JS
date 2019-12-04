@@ -128,7 +128,9 @@ function recorrerFuncion() {
         error = false;
         inputOriginal = inputIntroducido;
         valorX = i;
-        if (inputIntroducido === 'X') {
+        if (inputIntroducido === '') {
+            break;
+        } else if (inputIntroducido === 'X') {
             valorY = i;
         } else if (inputIntroducido === '-X') {
             valorY = i * -1;

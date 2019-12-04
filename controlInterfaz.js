@@ -117,7 +117,7 @@ function cambiarTema(tema) {
       colorPrincipal = '#ff0090';
       colorOperaciones = '#ff7dc8';
       colorNumeros = '#ffceed';
-    }
+    } 
     colorPuntos = colorPrincipal;
     document.getElementById('boton_calcular').style.backgroundColor = colorPrincipal;
     document.getElementById('display').style.outlineColor = colorOperaciones;
@@ -128,4 +128,12 @@ function cambiarTema(tema) {
       divNumero.style.backgroundColor = colorNumeros;
     }
   }
+}
+
+function controlarZoom(valorZoom) {
+  zoom = valorZoom;
+  separacionRaya = 10 + (valorZoom / 2);
+  tamanoRaya = 3 + (valorZoom / 2);
+  console.log(tamanoRaya);
+  calcularFuncion();
 }

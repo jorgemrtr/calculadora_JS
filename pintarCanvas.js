@@ -1,13 +1,14 @@
 var colorEje = 'black';
 var colorPuntos = '#4285f4';
-var tamanoRaya = 5;
-var separacionRaya = 10;
+var tamanoRaya = 10;
+var separacionRaya = 25;
+var zoom = 25;
 var canvas, lienzo, totalX, totalY;
 pintarBase();
 
 // se pinta el eje completo en el canvas siendo el punto 0,0 mitad de la anchura y altura
 function pintarBase() {
-    canvas = document.getElementById('lienzo'); 
+    canvas = document.getElementById('lienzo');
     lienzo = canvas.getContext('2d');
     totalX = canvas.width;
     totalY = canvas.height;
@@ -27,6 +28,7 @@ function pintarEjes() {
     lienzo.lineTo((totalX / 2), totalY);
 }
 function pintarRayas() {
+    console.log('raya: ' + tamanoRaya);
     lienzo.strokeStyle = colorEje;
     for (var i = (totalX / 2); i < totalX; i += separacionRaya) {
         lienzo.moveTo(i, (totalY / 2));
@@ -54,16 +56,17 @@ function limpiar() {
 los ejes X e Y del canvas*/
 var datoXAntiguo, datoYAntiguo, esPrimerDato;
 function pintarValores(datoX, datoY) {
+    if (zoom > 0) {
+        datoX *= zoom;
+        datoY *= zoom;
+    }
+    datoX = datoX + (totalX / 2);
+    datoY = (datoY * -1) + (totalY / 2);
     if (esPrimerDato) {
         datoXAntiguo = datoX;
         datoYAntiguo = datoY;
         esPrimerDato = false;
     }
-    console.log('Datos: ')
-    console.log(datoX);
-    console.log(datoY);
-    datoX = datoX + (totalX/2);
-    datoY = (datoY * -1) + (totalY/2);
     lienzo.beginPath();
     lienzo.strokeStyle = colorPuntos;
     lienzo.moveTo(datoXAntiguo, datoYAntiguo);
