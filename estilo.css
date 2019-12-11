@@ -50,6 +50,7 @@ select {
     float: left;
     padding: 1em 0;
     width: 15%;
+    min-width: 3em;
     height: 1em;
     outline: white solid 1px;
 }
@@ -71,6 +72,7 @@ select {
 }
 
 div#boton_cero {
+    min-width: 1.5em;
     width: 10%;
     text-align: center;
 }

@@ -10,6 +10,20 @@
       margin-left: 25%;
       width: 50%;
     }
+
+    @media screen and (max-width: 600px) {
+      #chasis_calculadora {
+        margin-left: 2%;
+        width: 96%;
+      }
+    }
+
+    @media screen and (max-width: 900px) {
+      #chasis_calculadora {
+        margin-left: 8%;
+        width: 84%;
+      }
+    }
   </style>
   <script>
     function cambiarModo() {
@@ -21,15 +35,15 @@
 <body onkeydown="comprobarInput(event.key)">
 
   <div id="chasis_calculadora">
-      <select id="tema" onchange="cambiarTema(this.options[tema.selectedIndex].value)">
-          <option>Clasico</option>
-          <option>Rojo</option>
-          <option>Naranja</option>
-          <option>Rosa</option>
-          <option>Azul</option>
-          <option>Cyan</option>
-          <option>Verde</option>
-        </select>
+    <select id="tema" onchange="cambiarTema(this.options[tema.selectedIndex].value)">
+      <option>Clasico</option>
+      <option>Rojo</option>
+      <option>Naranja</option>
+      <option>Rosa</option>
+      <option>Azul</option>
+      <option>Cyan</option>
+      <option>Verde</option>
+    </select>
     <div id="display">
       <div id="boton_cero" class="boton_operacion" onclick="resetearPantallaCientifica()">C</div>
       <div id="pantallaSuperior" style="width: 90%;"></div>
