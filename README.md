@@ -7,5 +7,5 @@ Calculadora hecha en javascript como práctica para el grado superior DAW
 - Modo normal
 Calculadora simple que permite hacer cuentas
 
-- Modo cientìfico
+- Modo científico
 Permite pintar funciones en una gráfica
